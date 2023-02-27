@@ -1,0 +1,34 @@
+USE [master]
+GO
+
+CREATE DATABASE [LetterService]
+Go
+
+USE [LetterService]
+GO
+
+CREATE TABLE [User]
+(
+	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	Email NVARCHAR(30) NOT NULL,
+	[Password] CHAR(128) NOT NULL,
+	[Role] VARCHAR(10) NOT NULL
+)
+GO
+
+CREATE TABLE [Letter]
+(
+	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
+	PostTime DATETIME NOT NULL,
+	[Message] NVARCHAR(1000) NOT NULL
+)
+Go
+
+CREATE TABLE [UserLetter]
+(
+	UserId INT NOT NULL,
+	LetterId INT NOT NULL,
+	FOREIGN KEY (UserId) REFERENCES [User] (Id),
+	FOREIGN KEY (LetterId) REFERENCES [Letter] (Id),
+	PRIMARY KEY (UserId, LetterId)
+)
