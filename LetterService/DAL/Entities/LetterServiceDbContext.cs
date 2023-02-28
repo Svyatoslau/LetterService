@@ -12,24 +12,27 @@ public partial class LetterServiceDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Letter>(entity =>
+        {
+            entity.Property(e => e.Message).HasMaxLength(1000);
+            entity.Property(e => e.PostTime).HasColumnType("datetime");
+            entity.HasOne(d => d.User).WithMany(p => p.Letters)
+                .HasForeignKey(d => d.UserId)
+                .OnDelete(DeleteBehavior.ClientSetNull);
+        });
+
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasMany(u => u.Letters).WithMany(l => l.Users)
-                .UsingEntity<Dictionary<string, object>>(
-                    "UserLetter",
-                    r => r.HasOne<Letter>().WithMany()
-                        .HasForeignKey("LetterId"),
-                    l => l.HasOne<User>().WithMany()
-                        .HasForeignKey("UserId"),
-                    j =>
-                    {
-                        j.HasKey("UserId", "LetterId").IsClustered(false);
-                        j.ToTable("UserLetter");
-                    });
+            entity.ToTable("User");
+            entity.Property(e => e.Email).HasMaxLength(30);
+            entity.Property(e => e.Password)
+                .HasMaxLength(111)
+                .IsUnicode(false)
+                .IsFixedLength();
+            entity.Property(e => e.Role)
+                .HasMaxLength(10)
+                .IsUnicode(false);
         });
-        modelBuilder.Entity<Letter>(entity =>
-            entity.Property(l => l.PostTime).HasColumnType("datetie"));
-
         OnModelCreatingPartial(modelBuilder);
     }
 
