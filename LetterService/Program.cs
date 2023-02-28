@@ -1,4 +1,6 @@
 using LetterService.DAL.Entities;
+using LetterService.Security;
+using LetterService.Security.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +11,10 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<LetterServiceDbContext>(option => option.UseSqlServer(connection));
-
+builder.Services
+    .AddDbContext<LetterServiceDbContext>(option => option.UseSqlServer(connection))
+    .AddTransient<IHasher, SecretHasher>();
+    
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
