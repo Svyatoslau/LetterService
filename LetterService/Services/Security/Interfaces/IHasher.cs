@@ -1,4 +1,4 @@
-﻿namespace LetterService.Security.Interfaces;
+﻿namespace LetterService.Services.Security.Interfaces;
 
 public interface IHasher
 {

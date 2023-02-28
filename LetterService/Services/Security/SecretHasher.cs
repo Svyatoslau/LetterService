@@ -1,9 +1,9 @@
-﻿using LetterService.Security.Interfaces;
+﻿using LetterService.Services.Security.Interfaces;
 using System.Security.Cryptography;
 
-namespace LetterService.Security;
+namespace LetterService.Services.Security;
 
-public class SecretHasher: IHasher
+public class SecretHasher : IHasher
 {
     private const int _saltSize = 16;
     private const int _keySize = 32;
