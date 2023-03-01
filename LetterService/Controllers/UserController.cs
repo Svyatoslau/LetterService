@@ -1,4 +1,5 @@
 ﻿using LetterService.DAL.Entities;
+using LetterService.Models.API;
 using LetterService.Models.DTO;
 using LetterService.Services.Security.Interfaces;
 using Microsoft.AspNetCore.Http;
@@ -23,23 +24,13 @@ public class UserController : ControllerBase
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
         if (user is null)
-            return BadRequest(new 
-            {
-                message = "Not valid credentials",
-                user = model.Email
-            });
+            return BadRequest(new BadLogin { User = model.Email});
 
         var token  = _loginService.Login(user, model.Password);
-
         if (token.IsNullOrEmpty())
-            return BadRequest(new 
-            {
-                message = "Not valid credentials",
-                user = model.Email
-            });
+            return BadRequest(new BadLogin { User = model.Email });
 
-
-        return Ok(new { token=token });
+        return Ok(new { Token=token });
     }
 
     [HttpPost("register")]
