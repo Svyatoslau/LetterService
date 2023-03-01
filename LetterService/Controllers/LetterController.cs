@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LetterService.Controllers;
 [Route("api/user/{userId}/letter")]
 [ApiController]
+[Authorize(Roles = "user, admin")]
 public class LetterController : ControllerBase
 {
     [HttpGet]

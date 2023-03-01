@@ -1,7 +1,9 @@
 ﻿using LetterService.DAL.Entities;
 using LetterService.Models.API;
 using LetterService.Models.DTO;
+using LetterService.Services.Security;
 using LetterService.Services.Security.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
