@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LetterService.Controllers;
@@ -16,8 +17,9 @@ public class UserController : ControllerBase
 {
     private readonly LetterServiceDbContext _context;
     private readonly ILogin _loginService;
-    public UserController(LetterServiceDbContext context, ILogin loginService) =>
-        (_context, _loginService) = (context, loginService);
+    private readonly IRegister _registerService;
+    public UserController(LetterServiceDbContext context, ILogin loginService, IRegister registerService) =>
+        (_context, _loginService, _registerService) = (context, loginService, registerService);
 
     [HttpPost("login")]
     public async Task<ActionResult> LoginAsync(
@@ -36,8 +38,19 @@ public class UserController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<ActionResult> RegisterAsync()
+    public async Task<ActionResult> RegisterAsync(
+        [FromBody] UserDto model
+    )
     {
-        return Ok();
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
+        if (user is not null)
+            return BadRequest(new { message = $"EROR user: {model.Email} Exists" });
+
+        User newUser = _registerService.CreateUser(model, Models.Role.User);
+        
+        await _context.AddAsync(newUser);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { message = $"User {newUser.Email} created Successful" });
     }
 }

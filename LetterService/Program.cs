@@ -37,7 +37,8 @@ builder.Services
     .AddDbContext<LetterServiceDbContext>(option => option.UseSqlServer(connection))
     .AddSingleton<IHasher, SecretHasher>()
     .AddSingleton<ILogin, SecuróEntryService>()
-    .AddSingleton<ICreateToken, CreateTokenService>();
+    .AddSingleton<ICreateToken, CreateTokenService>()
+    .AddSingleton<IRegister, RegistrationService>();
     
 var app = builder.Build();
 
