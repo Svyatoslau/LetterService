@@ -25,9 +25,7 @@ public class SecretHasher : IHasher
         return string.Join(
             segmentDelimiter,
             Convert.ToHexString(hash),
-            Convert.ToHexString(salt),
-            _iterations,
-            _algorithm
+            Convert.ToHexString(salt)
         );
     }
 
@@ -36,14 +34,12 @@ public class SecretHasher : IHasher
         string[] segments = hashString.Split(segmentDelimiter);
         byte[] hash = Convert.FromHexString(segments[0]);
         byte[] salt = Convert.FromHexString(segments[1]);
-        int interations = int.Parse(segments[2]);
-        HashAlgorithmName algorithm = new HashAlgorithmName(segments[3]);
         byte[] inputHash = Rfc2898DeriveBytes.Pbkdf2(
             input,
             salt,
-            interations,
-            algorithm,
-            hash.Length
+            _iterations,
+            _algorithm,
+            _keySize
         );
         return CryptographicOperations.FixedTimeEquals(inputHash, hash);
     }
