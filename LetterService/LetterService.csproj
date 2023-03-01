@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <Folder Include="Models\API\" />
+    <Folder Include="Services\Interfaces\" />
   </ItemGroup>
 
 </Project>
