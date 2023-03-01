@@ -39,7 +39,7 @@ public class UserController : ControllerBase
             });
 
 
-        return Ok(new { message = $"User: {model.Email}: Seccessful verified", token=token });
+        return Ok(new { token=token });
     }
 
     [HttpPost("register")]

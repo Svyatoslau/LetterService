@@ -1,4 +1,5 @@
 ﻿using LetterService.DAL.Entities;
+using LetterService.Models;
 using LetterService.Services.Security.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -19,7 +20,7 @@ public class CreateTokenService : ICreateToken
         var claims = new List<Claim>
         {
             new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-            new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
+            new Claim(ClaimsIdentity.DefaultRoleClaimType, GetRole(user.Role))
         };
 
         SigningCredentials signingCredentials =
@@ -45,4 +46,11 @@ public class CreateTokenService : ICreateToken
 
         return new SymmetricSecurityKey(Encoding.UTF8.GetBytes(key));
     }
+
+    private string GetRole(Role role) => role switch
+    {
+        Role.User => "user",
+        Role.Admin => "admin",
+        _ => throw new Exception("no such role")
+    };
 }
