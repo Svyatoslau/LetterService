@@ -8,4 +8,5 @@ public class LetterDto
     public DateTime PostTime { get; set; }
     public string Message { get; set; } = null!;
     public DateTime CreationTime { get; set; }
+    public bool IsPosted { get; set; }
 }

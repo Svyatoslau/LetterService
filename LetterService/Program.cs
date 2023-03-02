@@ -1,5 +1,7 @@
 using LetterService.DAL.Entities;
 using LetterService.Mappers;
+using LetterService.Services;
+using LetterService.Services.Interfaces;
 using LetterService.Services.Security;
 using LetterService.Services.Security.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -40,6 +42,7 @@ builder.Services
     .AddSingleton<ILogin, SecuróEntryService>()
     .AddSingleton<ICreateToken, CreateTokenService>()
     .AddSingleton<IRegister, RegistrationService>()
+    .AddSingleton<ICRUDLetter, LetterCRUDService>()
     .AddAutoMapper(typeof(LetterServiceProfile));
     
 var app = builder.Build();
