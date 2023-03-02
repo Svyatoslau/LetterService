@@ -1,10 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace LetterService.Models.DTO;
+﻿namespace LetterService.Models.DTO;
 
 public class UserDto
 {
-    [EmailAddress]
-    public required string Email { get; set; }
-    public required string Password { get; set; }
+    public int Id { get; set; }
+    public string Email { get; set; }
 }
