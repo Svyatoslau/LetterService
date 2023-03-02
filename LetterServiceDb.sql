@@ -22,6 +22,7 @@ CREATE TABLE [Letters]
 	PostTime DATETIME NOT NULL,
 	[Message] NVARCHAR(1000) NOT NULL,
 	IsPosted BIT NOT NULL,
+	CreationTime DATETIME NOT NULL,
 	[UserId] INT NOT NULL REFERENCES [Users] (Id)
 )
 Go
@@ -39,3 +40,20 @@ VALUES
 	'876D3217CF513A3DBB02FF508FDB5CB2CA73BC3D693C443AB58D650A15999091:848EBCA5921031993602CA04FDE369AE',
 	1
 );
+
+INSERT INTO [Letters] (PostTime, [Message], IsPosted, CreationTime, UserId)
+VALUES
+(
+	DATEADD(hour,2,GETDATE()),
+	'Two the bigest features!!!',
+	0,
+	GETDATE(),
+	1
+),
+(
+	DATEADD(hour,5,GETDATE()),
+	'The main meaning of life',
+	0,
+	GETDATE(),
+	2	
+)
