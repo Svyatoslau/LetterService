@@ -1,6 +1,5 @@
 ﻿using LetterService.DAL.Entities;
 using LetterService.Models.API;
-using LetterService.Models.DTO;
 using LetterService.Services.Security;
 using LetterService.Services.Security.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -23,28 +22,36 @@ public class UserController : ControllerBase
 
     [HttpPost("login")]
     public async Task<ActionResult> LoginAsync(
-        [FromBody] UserDto model
+        [FromBody] UserApiModel model
     )
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
         if (user is null)
-            return BadRequest(new BadLogin { User = model.Email});
+        {
+            return BadRequest(new BadLogin { User = model.Email });
+        }
 
         var token  = _loginService.Login(user, model.Password);
         if (token.IsNullOrEmpty())
+        {
             return BadRequest(new BadLogin { User = model.Email });
+        }
+            
 
         return Ok(new { Token=token });
     }
 
     [HttpPost("register")]
     public async Task<ActionResult> RegisterAsync(
-        [FromBody] UserDto model
+        [FromBody] UserApiModel model
     )
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
         if (user is not null)
+        {
             return BadRequest(new { message = $"EROR user: {model.Email} Exists" });
+        }
+            
 
         User newUser = _registerService.CreateUser(model, Models.Role.User);
         
