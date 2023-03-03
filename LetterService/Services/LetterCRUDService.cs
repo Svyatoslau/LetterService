@@ -11,19 +11,24 @@ public class LetterCRUDService : ICRUDLetter
     {
         return new Letter
         {
-            CreationTime = model.CreationTime,
-            PostTime = model.PostTime,
+            CreationTime = DateTime.UtcNow,
+            PostTime = model.PostTime < DateTime.UtcNow
+                       ? DateTime.UtcNow
+                       : model.PostTime,
             Message = model.Message,
             IsPosted = false,
             UserId = userId
         };
     }
 
-    public void Update(Letter letter, LetterDto letterDto)
+    public void Update(Letter letter, LetterForCreate letterForCreateDto)
     {
-        letter.PostTime = letterDto.PostTime;
-        letter.Message= letterDto.Message;
-        letter.CreationTime = DateTime.Now;
+        letter.PostTime = letterForCreateDto.PostTime < DateTime.UtcNow
+                       ? DateTime.UtcNow
+                       : letterForCreateDto.PostTime;
+        letter.Message= letterForCreateDto.Message;
+        letter.CreationTime = DateTime.UtcNow;
+        letter.IsPosted = false;
     }
 
 

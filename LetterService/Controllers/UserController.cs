@@ -1,5 +1,7 @@
-﻿using LetterService.DAL.Entities;
+﻿using AutoMapper;
+using LetterService.DAL.Entities;
 using LetterService.Models.API;
+using LetterService.Models.DTO;
 using LetterService.Services.Security;
 using LetterService.Services.Security.Interfaces;
 using Microsoft.AspNetCore.Authorization;
@@ -17,8 +19,9 @@ public class UserController : ControllerBase
     private readonly LetterServiceDbContext _context;
     private readonly ILogin _loginService;
     private readonly IRegister _registerService;
-    public UserController(LetterServiceDbContext context, ILogin loginService, IRegister registerService) =>
-        (_context, _loginService, _registerService) = (context, loginService, registerService);
+    private readonly IMapper _mapper;
+    public UserController(LetterServiceDbContext context, ILogin loginService, IRegister registerService, IMapper mapper) =>
+        (_context, _loginService, _registerService, _mapper) = (context, loginService, registerService, mapper);
 
     [HttpPost("login")]
     public async Task<ActionResult> LoginAsync(
@@ -36,9 +39,14 @@ public class UserController : ControllerBase
         {
             return BadRequest(new BadLogin { User = model.Email });
         }
-            
+        
+        var userDto = _mapper.Map<UserDto>(user);
 
-        return Ok(new { Token=token });
+        return Ok(new
+        {
+            User = userDto,
+            Token = token,
+        });
     }
 
     [HttpPost("register")]
@@ -58,6 +66,8 @@ public class UserController : ControllerBase
         await _context.AddAsync(newUser);
         await _context.SaveChangesAsync();
 
-        return Ok(new { message = $"User {newUser.Email} created Successful" });
+        var newUserDto = _mapper.Map<UserDto>(newUser);
+
+        return Ok(newUserDto);
     }
 }

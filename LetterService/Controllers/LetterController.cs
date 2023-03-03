@@ -29,7 +29,7 @@ public class LetterController : ControllerBase
         [FromRoute] int userId    
     )
     {
-        bool IsValidUser = await VerifyUser(userId);
+        bool IsValidUser = await VerifyUserAsync(userId);
         if (!IsValidUser)
         {
             return BadRequest(new {message="Access denied"});
@@ -51,7 +51,7 @@ public class LetterController : ControllerBase
         [FromBody] LetterForCreate model
     )
     {
-        bool IsValidUser = await VerifyUser(userId);
+        bool IsValidUser = await VerifyUserAsync(userId);
         if (!IsValidUser)
         {
             return BadRequest(new { message = "Access denied" });
@@ -62,25 +62,19 @@ public class LetterController : ControllerBase
         await _context.Letters.AddAsync(letter);
         await _context.SaveChangesAsync();
 
-        var createdLetter = await _context.Letters.OrderBy(l => l.Id).LastOrDefaultAsync();
-        var createdLetterDto = _mapper.Map<LetterDto>(createdLetter);
+        var createdLetterDto = _mapper.Map<LetterDto>(letter);
 
         return Ok(createdLetterDto);
     }
 
     [HttpPut("{letterId}")]
     public async Task<ActionResult> UpdateLetterAsync(
-        [FromBody] LetterDto model,
+        [FromBody] LetterForCreate model,
         [FromRoute] int letterId,
         [FromRoute] int userId
     )
     {
-        if (model.Id != letterId)
-        {
-            return BadRequest(new { message = "Difrence bitween id"});
-        }
-
-        bool IsValidUser = await VerifyUser(userId);
+        bool IsValidUser = await VerifyUserAsync(userId);
         if (!IsValidUser)
         {
             return BadRequest(new { message = "Access denied" });
@@ -93,11 +87,14 @@ public class LetterController : ControllerBase
         }
 
         _letterService.Update(letter, model);
-        var updateLetter = _mapper.Map<LetterDto>(letter);
 
         await _context.SaveChangesAsync();
 
-        return Ok(updateLetter);
+        var updateLetterDto = _mapper.Map<LetterDto>(letter);
+
+        
+
+        return Ok(updateLetterDto);
     }
 
     [HttpDelete("{letterId}")]
@@ -106,7 +103,7 @@ public class LetterController : ControllerBase
         [FromRoute] int letterId
     )
     {
-        bool IsValidUser = await VerifyUser(userId);
+        bool IsValidUser = await VerifyUserAsync(userId);
         if (!IsValidUser)
         {
             return BadRequest(new { message = "Access denied" });
@@ -121,10 +118,12 @@ public class LetterController : ControllerBase
         _context.Letters.Remove(letter);
         await _context.SaveChangesAsync();
 
-        return Ok(letter);
+        var letterDto = _mapper.Map<LetterDto>(letter);
+
+        return Ok(letterDto);
     }
 
-    private async Task<bool> VerifyUser(int userId)
+    private async Task<bool> VerifyUserAsync(int userId)
     {
         var user = await _context.Users
             .FirstOrDefaultAsync(user => user.Id == userId);

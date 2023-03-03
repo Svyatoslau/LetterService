@@ -7,5 +7,5 @@ namespace LetterService.Services.Interfaces;
 public interface ICRUDLetter
 {
     public Letter Create(LetterForCreate model, int userId);
-    public void Update(Letter letter, LetterDto letterDto);
+    public void Update(Letter letter, LetterForCreate letterForCreateDto);
 }
