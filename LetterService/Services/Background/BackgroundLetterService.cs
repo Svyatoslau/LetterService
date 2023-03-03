@@ -38,7 +38,7 @@ public class BackgroundLetterService : IBackgroundLetter
         using (LetterServiceDbContext context = new LetterServiceDbContext(_options))
         {
             await context.Letters
-            .Where(l => !l.IsPosted && l.PostTime < DateTime.Now)
+            .Where(l => !l.IsPosted && l.PostTime < DateTime.UtcNow)
             .Join(
                 context.Users,
                 l => l.UserId,
@@ -61,7 +61,7 @@ public class BackgroundLetterService : IBackgroundLetter
                     email.Body = new TextPart(TextFormat.Html)
                     {
                         Text = $"<h3>{letterObject.letter.Message}</h3>" +
-                               $"<h5>Post time: {letterObject.letter.PostTime}<h5>"
+                               $"<h5>Post time: {letterObject.letter.PostTime + (DateTime.Now - DateTime.UtcNow)}<h5>"
                     };
 
                     using var smtp = new SmtpClient();

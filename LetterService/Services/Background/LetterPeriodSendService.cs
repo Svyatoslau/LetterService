@@ -9,9 +9,10 @@ public class LetterPeriodSendService : BackgroundService
     private const int DELETE_POSTED_MESSAGE_PERIOD = 1440;
 
     private readonly IBackgroundLetter _letterSerivce;
+    private readonly ILogger<LetterPeriodSendService> _logger;
 
-    public LetterPeriodSendService(IBackgroundLetter letterSerivce) =>
-        _letterSerivce= letterSerivce;
+    public LetterPeriodSendService(IBackgroundLetter letterSerivce, ILogger<LetterPeriodSendService> logger) =>
+        (_letterSerivce, _logger) = (letterSerivce, logger);
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -21,20 +22,21 @@ public class LetterPeriodSendService : BackgroundService
             
             try
             {
-                Console.WriteLine("[INFO] Try Send not Posted letters");
+                _logger.LogInformation("Try Send not Posted letters");
 
                 await _letterSerivce.SendLettersAsync();
             }
             catch(Exception ex)
             {
-                Console.WriteLine($"[ERROR] letter background error: {ex.Message}");
+                _logger.LogError($"letter background error: {ex.Message}");
             }
 
             i++;
 
             if (i >= DELETE_POSTED_MESSAGE_PERIOD)
             {
-                Console.WriteLine("[INFO] Try delete posted Letters");
+                _logger.LogInformation("Try delete posted Letters");
+
                 await _letterSerivce.RemovePostedLetttersAsync();
                 i = 0;
             }
