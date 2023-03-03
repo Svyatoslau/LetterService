@@ -65,8 +65,6 @@ public class LetterController : ControllerBase
         var createdLetter = await _context.Letters.OrderBy(l => l.Id).LastOrDefaultAsync();
         var createdLetterDto = _mapper.Map<LetterDto>(createdLetter);
 
-
-
         return Ok(createdLetterDto);
     }
 

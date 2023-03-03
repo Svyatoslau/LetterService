@@ -1,6 +1,7 @@
 using LetterService.DAL.Entities;
 using LetterService.Mappers;
 using LetterService.Services;
+using LetterService.Services.Background;
 using LetterService.Services.Interfaces;
 using LetterService.Services.Security;
 using LetterService.Services.Security.Interfaces;
@@ -43,6 +44,8 @@ builder.Services
     .AddSingleton<ICreateToken, CreateTokenService>()
     .AddSingleton<IRegister, RegistrationService>()
     .AddSingleton<ICRUDLetter, LetterCRUDService>()
+    .AddSingleton<IBackgroundLetter, BackgroundLetterService>()
+    .AddHostedService<LetterPeriodSendService>()
     .AddAutoMapper(typeof(LetterServiceProfile));
     
 var app = builder.Build();
