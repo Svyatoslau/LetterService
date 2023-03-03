@@ -25,7 +25,7 @@ public class UserController : ControllerBase
 
     [HttpPost("login")]
     public async Task<ActionResult> LoginAsync(
-        [FromBody] UserApiModel model
+        [FromBody] UserLoginModel model
     )
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
@@ -51,7 +51,7 @@ public class UserController : ControllerBase
 
     [HttpPost("register")]
     public async Task<ActionResult> RegisterAsync(
-        [FromBody] UserApiModel model
+        [FromBody] UserLoginModel model
     )
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);

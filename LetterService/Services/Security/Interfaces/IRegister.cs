@@ -6,5 +6,5 @@ namespace LetterService.Services.Security.Interfaces;
 
 public interface IRegister
 {
-    public User CreateUser(UserApiModel user, Role role);
+    public User CreateUser(UserLoginModel user, Role role);
 }

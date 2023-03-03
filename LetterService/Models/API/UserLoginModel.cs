@@ -2,7 +2,7 @@
 
 namespace LetterService.Models.API;
 
-public class UserApiModel
+public class UserLoginModel
 {
     [EmailAddress]
     public required string Email { get; set; }

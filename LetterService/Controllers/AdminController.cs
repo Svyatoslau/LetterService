@@ -22,7 +22,7 @@ public class AdminController : ControllerBase
     public async Task<ActionResult> GetAllUsersLettersAsync()
     {
         // подумать как лучше сделать
-        var letters = await _context.Users
+        var lettersDto = await _context.Users
             .GroupJoin(
                 _context.Letters,
                 u => u.Id,
@@ -35,6 +35,6 @@ public class AdminController : ControllerBase
             )
             .ToListAsync();
 
-        return Ok(letters);
+        return Ok(lettersDto);
     }
 }

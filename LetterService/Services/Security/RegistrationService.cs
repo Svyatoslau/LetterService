@@ -11,7 +11,7 @@ public class RegistrationService : IRegister
     public RegistrationService(IHasher hasher) =>
         _hasher = hasher;
 
-    public User CreateUser(UserApiModel user, Role role)
+    public User CreateUser(UserLoginModel user, Role role)
     {
         string hashedPassword = _hasher.Hash(user.Password);
         return new User
