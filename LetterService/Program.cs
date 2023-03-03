@@ -14,12 +14,14 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
-string connection = config.GetConnectionString("DefaultConnection");
+string? connection = config.GetConnectionString("DefaultConnection");
+string[] origins = config["AllowedOrigins"].Split(";");
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddCors();
 builder.Services.AddAuthorization();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -56,6 +58,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors(builder => builder
+    .WithOrigins(origins)
+    .AllowAnyHeader()
+    .AllowAnyMethod()
+);
+    
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
