@@ -5,8 +5,10 @@ namespace LetterService.Services.Background;
 
 public class LetterPeriodSendService : BackgroundService
 {
-    private const int DELAY = 60000;
-    private const int DELETE_POSTED_MESSAGE_PERIOD = 1440;
+    // delay one minute for letters sending
+    private const int DELAY_FOR_PERIOD_SENDING = 60 * 1000;
+    // every 30 days clean posted message
+    private const int DELETE_POSTED_MESSAGE_PERIODS = 60 * 24 * 30;
 
     private readonly IBackgroundLetter _letterSerivce;
     private readonly ILogger<LetterPeriodSendService> _logger;
@@ -33,7 +35,7 @@ public class LetterPeriodSendService : BackgroundService
 
             i++;
 
-            if (i >= DELETE_POSTED_MESSAGE_PERIOD)
+            if (i >= DELETE_POSTED_MESSAGE_PERIODS)
             {
                 _logger.LogInformation("Try delete posted Letters");
 
@@ -41,7 +43,7 @@ public class LetterPeriodSendService : BackgroundService
                 i = 0;
             }
 
-            await Task.Delay(DELAY);
+            await Task.Delay(DELAY_FOR_PERIOD_SENDING);
         }
     }
 }
