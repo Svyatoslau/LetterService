@@ -45,14 +45,14 @@ INSERT INTO [Letters] (PostTime, [Message], IsPosted, CreationTime, UserId)
 VALUES
 (
 	DATEADD(hour,2,GETDATE()),
-	'Two the bigest features!!!',
+	'message for lvvm253@gmail.com. HI!)',
 	0,
 	GETDATE(),
 	1
 ),
 (
 	DATEADD(hour,5,GETDATE()),
-	'The main meaning of life',
+	'message for svyatyar@gmail.com. HI!!!!',
 	0,
 	GETDATE(),
 	2	
