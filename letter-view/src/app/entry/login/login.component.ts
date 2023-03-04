@@ -9,7 +9,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   public signin: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.minLength(3)])
+    password: new FormControl('', [Validators.required])
   });
 
   public hide: boolean = true;
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
   
   public pushForm(){
-    if (!this.passwordInput?.valid || !this.emailInput?.valid){
+    if (this.passwordInput?.invalid || this.emailInput?.invalid){
       this.isFormValid = false;
     }
   }
