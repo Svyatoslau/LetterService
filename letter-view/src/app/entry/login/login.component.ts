@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   });
 
   public hide: boolean = true;
-
+  public isFormValid: boolean = true;
   
   public get emailInput() {
     return this.signin.get('email');
@@ -23,7 +23,11 @@ export class LoginComponent implements OnInit {
     return this.signin.get('password');
   }
   
-  
+  public pushForm(){
+    if (!this.passwordInput?.valid || !this.emailInput?.valid){
+      this.isFormValid = false;
+    }
+  }
   
   constructor() { }
 

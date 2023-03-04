@@ -1,9 +1,13 @@
 <div class="auth-form">
   <h1>Sign in to LetSer</h1>
 
+  <p *ngIf="!isFormValid" class="login-error-validation">
+    Incorrect password or email address
+  </p>
+
   <form [formGroup]="signin">
 
-    <mat-form-field>
+    <mat-form-field (click)="isFormValid=true">
       <mat-label>Email</mat-label>
       <input
         type="email"
@@ -19,7 +23,7 @@
       </mat-error>
     </mat-form-field>
     
-    <mat-form-field>
+    <mat-form-field (click)="isFormValid=true">
       <mat-label>Password</mat-label>
       <input 
         matInput 
@@ -36,7 +40,7 @@
       </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary">
+    <button mat-raised-button color="primary" (click)="pushForm()">
       Sign In
     </button>
 
