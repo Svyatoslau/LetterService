@@ -51,9 +51,16 @@
       <mat-error *ngIf="repeatPasswordInput?.hasError('required')">
         Password is <strong>required</strong>
       </mat-error>
+      <mat-error *ngIf="repeatPasswordInput?.hasError('passwordNotRepeated') && !repeatPasswordInput?.hasError('required')">
+        Passwords need to be <strong>same</strong>
+      </mat-error>
     </mat-form-field>
 
-    <button mat-raised-button color="primary" (click)="pushForm()">
+    <button 
+      mat-raised-button color="primary"
+      (click)="pushForm()"
+      [disabled]="(passwordInput?.invalid || emailInput?.invalid || repeatPasswordInput?.invalid)"
+    >
       Sign up
     </button>
 

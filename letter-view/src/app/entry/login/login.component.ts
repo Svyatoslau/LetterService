@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +8,13 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   public signin: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.email, Validators.required]),
-    password: new FormControl('', [Validators.required])
+    email: new FormControl('', [
+      Validators.email,
+      Validators.required
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+    ])
   });
 
   public hide: boolean = true;
@@ -29,7 +34,10 @@ export class LoginComponent implements OnInit {
     }
   }
   
-  constructor() { }
+
+
+
+constructor() { }
 
   ngOnInit() {
   }

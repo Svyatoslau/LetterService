@@ -33,6 +33,9 @@ p.login-callout{
     border: 0.9px solid;
     border-color: #dfdfdf;
 }
+a{
+    color: rgb(129, 129, 255)
+}
 a:link{
     text-decoration: none;
 }
