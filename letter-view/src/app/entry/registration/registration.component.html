@@ -34,6 +34,9 @@
       <mat-error *ngIf="passwordInput?.hasError('required')">
         Password is <strong>required</strong>
       </mat-error>
+      <mat-error *ngIf="passwordInput?.hasError('minlength')">
+        Mininal lenght for password <strong>4</strong>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
@@ -51,19 +54,21 @@
       <mat-error *ngIf="repeatPasswordInput?.hasError('required')">
         Password is <strong>required</strong>
       </mat-error>
-      <mat-error *ngIf="repeatPasswordInput?.hasError('passwordNotRepeated') && !repeatPasswordInput?.hasError('required')">
-        Passwords need to be <strong>same</strong>
+      <mat-error *ngIf="repeatPasswordInput?.hasError('minlength')">
+        Mininal lenght for password <strong>4</strong>
       </mat-error>
     </mat-form-field>
-
+    
     <button 
       mat-raised-button color="primary"
       (click)="pushForm()"
-      [disabled]="(passwordInput?.invalid || emailInput?.invalid || repeatPasswordInput?.invalid)"
+      [disabled]="register.invalid"
     >
       Sign up
     </button>
-
+    <mat-error *ngIf="register?.hasError('passwordNotRepeated')">
+      Passwords need to be <strong>same</strong>
+    </mat-error>
   </form>
 
   <p class="registr-callout">

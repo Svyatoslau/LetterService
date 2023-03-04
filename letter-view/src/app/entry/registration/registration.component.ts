@@ -48,13 +48,13 @@ export class RegistrationComponent implements OnInit {
       const password = this.passwordInput?.value;
 
       const passwordValid = repeatedPassword == password;
-      
+
       return !passwordValid ? {passwordNotRepeated:true}: null;
     }
   }
 
   constructor() { 
-    this.repeatPasswordInput?.addValidators(this.createPasswordConfirmValidator());
+    this.register?.addValidators(this.createPasswordConfirmValidator());
   }
 
   ngOnInit() {
