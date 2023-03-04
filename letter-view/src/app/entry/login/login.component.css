@@ -1,0 +1,43 @@
+.auth-form{
+    margin: auto;
+    width: 308px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+h1{
+    text-align: center;
+    margin: 0;
+    font-size: 24px;
+    font-weight: var(--base-text-weight-light, 300);
+    letter-spacing: -0.5px;
+}
+form{
+    margin-top: 16px;
+    padding: 16px;
+    border-radius: 6px;
+    background-color: #f0f0f0;
+    border: 0.9px solid;
+    border-color: #dfdfdf;
+}
+
+mat-form-field, button{
+    width: 100%;
+}
+p.login-callout{
+    padding: 16px;
+    text-align: center;
+    margin-top: 16px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    background-color: #fdfdfd;
+    border: 0.9px solid;
+    border-color: #dfdfdf;
+}
+a:link{
+    text-decoration: none;
+}
+a:hover{
+    text-decoration: underline;
+}
+
+
