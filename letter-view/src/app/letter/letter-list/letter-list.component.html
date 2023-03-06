@@ -1,0 +1,19 @@
+<div class="container-list">
+  <h3>Unposted</h3>
+  <mat-selection-list [multiple]="false">
+    <app-letter-list-item 
+      *ngFor="let letter of getUnpostedLetters()"
+      [letter]="letter"
+    >
+    </app-letter-list-item>
+  </mat-selection-list>
+
+  <h3>Posted</h3>
+  <mat-selection-list [multiple]="false">
+    <app-letter-list-item
+      *ngFor="let letter of getPostedLetters()"
+      [letter]="letter"
+    >
+    </app-letter-list-item>
+  </mat-selection-list>
+</div>
