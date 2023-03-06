@@ -1,0 +1,27 @@
+<div class="user-container">
+  <div *ngIf="isAdmin(); then adminBlock; else userBlock"></div>
+  <button
+    mat-raised-button
+    (click)="newMessage()"
+  >
+  New Message
+</button>
+</div>
+
+<ng-template #adminBlock>
+  <mat-form-field appearance="fill">
+    <mat-label>Choese user</mat-label>
+    <mat-select [value]="currentUser.email">
+      <mat-option  
+        *ngFor="let user of users"
+        [value]="user.email"
+        (click)="changeLetters(user)"
+      >
+        {{user.email}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</ng-template>
+<ng-template #userBlock>
+  <h3>{{currentUser.email}}</h3>
+</ng-template>
