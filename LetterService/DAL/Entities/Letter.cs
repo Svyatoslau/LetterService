@@ -4,7 +4,7 @@ public class Letter
 {
     public int Id { get; set; }
     public DateTime PostTime { get; set; }
-    public string Message { get; set; } = null!;
+    public string? Message { get; set; }
     public bool IsPosted { get; set; }
     public DateTime CreationTime { get; set; }
     public int UserId { get; set; }    

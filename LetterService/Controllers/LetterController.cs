@@ -12,7 +12,7 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 using System.Security.Claims;
 
 namespace LetterService.Controllers;
-[Route("api/user/{userId}/letter")]
+[Route("api/user/{userId}")]
 [ApiController]
 [Authorize(Roles = "user, admin")]
 public class LetterController : ControllerBase
@@ -24,7 +24,7 @@ public class LetterController : ControllerBase
     public LetterController(LetterServiceDbContext context, IMapper mapper, ICRUDLetter letterService) =>
         (_context, _mapper, _letterService) = (context, mapper, letterService);
 
-    [HttpGet]
+    [HttpGet("letters")]
     public async Task<ActionResult> GetAllLettersAsync(
         [FromRoute] int userId    
     )
@@ -45,7 +45,7 @@ public class LetterController : ControllerBase
         return Ok(lettersDto);
     }
 
-    [HttpPost]
+    [HttpPost("letter")]
     public async Task<ActionResult> CreateLetterAsync(
         [FromRoute] int userId,
         [FromBody] LetterForCreate model
@@ -67,7 +67,7 @@ public class LetterController : ControllerBase
         return Ok(createdLetterDto);
     }
 
-    [HttpPut("{letterId}")]
+    [HttpPut("letter/{letterId}")]
     public async Task<ActionResult> UpdateLetterAsync(
         [FromBody] LetterForCreate model,
         [FromRoute] int letterId,
@@ -97,7 +97,7 @@ public class LetterController : ControllerBase
         return Ok(updateLetterDto);
     }
 
-    [HttpDelete("{letterId}")]
+    [HttpDelete("letter/{letterId}")]
     public async Task<ActionResult> DeleteLetterAsync(
         [FromRoute] int userId,
         [FromRoute] int letterId

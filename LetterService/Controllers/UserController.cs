@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LetterService.Controllers;
-[Route("api/user")]
+[Route("api")]
 [ApiController]
 public class UserController : ControllerBase
 {
@@ -23,7 +23,7 @@ public class UserController : ControllerBase
     public UserController(LetterServiceDbContext context, ILogin loginService, IRegister registerService, IMapper mapper) =>
         (_context, _loginService, _registerService, _mapper) = (context, loginService, registerService, mapper);
 
-    [HttpPost("login")]
+    [HttpPost("user/login")]
     public async Task<ActionResult> LoginAsync(
         [FromBody] UserLoginModel model
     )
@@ -49,7 +49,7 @@ public class UserController : ControllerBase
         });
     }
 
-    [HttpPost("register")]
+    [HttpPost("user/register")]
     public async Task<ActionResult> RegisterAsync(
         [FromBody] UserLoginModel model
     )
@@ -70,4 +70,14 @@ public class UserController : ControllerBase
 
         return Ok(newUserDto);
     }
+
+    [HttpGet("users")]
+    [Authorize(Roles ="Admin")]
+    public async Task<ActionResult> GetUsers()
+    {
+        var users = await _context.Users.ToListAsync();
+        var usersDto = _mapper.Map<IEnumerable<UserDto>>(users);
+        return Ok(usersDto);
+    }
+
 }
