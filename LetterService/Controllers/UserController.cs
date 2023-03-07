@@ -72,7 +72,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("users")]
-    [Authorize(Roles ="Admin")]
+    [Authorize(Roles ="admin")]
     public async Task<ActionResult> GetUsers()
     {
         var users = await _context.Users.ToListAsync();
