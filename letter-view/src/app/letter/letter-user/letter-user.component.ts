@@ -19,8 +19,8 @@ export class LetterUserComponent implements OnInit {
   public currentUser?: User;
 
   //public change: EventEmitter<any> = new EventEmitter();
-
-  public users: User[] = []
+  @Input()
+  public users: User[] = [];
 
   constructor(
     private router: Router,

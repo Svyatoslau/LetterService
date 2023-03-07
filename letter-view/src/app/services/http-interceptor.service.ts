@@ -3,9 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class HttpInterceptorService implements HttpInterceptor{
 
   constructor(private authService: AuthService) { }
@@ -16,7 +14,7 @@ export class HttpInterceptorService implements HttpInterceptor{
     if(this.authService.IsAthenticated()){
       req = req.clone({ setHeaders: {Authorization: `Bearer ${token}` } })
     }
-
+    
     return next.handle(req);
   }
 

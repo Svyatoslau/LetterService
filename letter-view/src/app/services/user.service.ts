@@ -11,17 +11,13 @@ import { User } from '../models/User';
   providedIn: 'root'
 })
 export class UserService {
-  public currentUser!: User;
-
-  private apiUrl: string;
+  private apiUrl: string = environment.apiUrl;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json' 
     })
   };
-  constructor(private http: HttpClient) {
-    this.apiUrl = environment.apiUrl;
-  }
+  constructor(private http: HttpClient) { }
   
   public loginUser(form: UserLogin): Observable<SuccesfullLogin | ErrorLogin> {
     return this.http.post<SuccesfullLogin | ErrorLogin>(

@@ -52,8 +52,7 @@ export class LoginComponent implements OnInit {
         (value: SuccesfullLogin | ErrorLogin) => {
           //console.log(value)
           if (this.instanceOfSuccesfullLogin(value)){
-            this.userService.currentUser = value.user;
-            this.authService.authenticate(value.token);
+            this.authService.authenticate(value);
             this.router.navigate(['/page'])
           }
           else {
