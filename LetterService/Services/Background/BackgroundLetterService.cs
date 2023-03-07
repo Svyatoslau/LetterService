@@ -57,10 +57,10 @@ public class BackgroundLetterService : IBackgroundLetter
                     var email = new MimeMessage();
                     email.From.Add(MailboxAddress.Parse(_hostUser));
                     email.To.Add(MailboxAddress.Parse(letterObject.Email));
-                    email.Subject = $"Letter id = {letterObject.letter.Id}";
+                    email.Subject = letterObject.letter.Topic;
                     email.Body = new TextPart(TextFormat.Html)
                     {
-                        Text = $"<h3>{letterObject.letter.Message}</h3>" +
+                        Text = $"<h3>{letterObject.letter.Body}</h3>" +
                                $"<h5>Post time: {letterObject.letter.PostTime + (DateTime.Now - DateTime.UtcNow)}<h5>"
                     };
 

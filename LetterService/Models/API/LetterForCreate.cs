@@ -3,5 +3,6 @@
 public class LetterForCreate
 {
     public DateTime PostTime { get; set; }
-    public string Message { get; set; } = null!;
+    public string? Topic { get; set; }
+    public string? Body { get; set; }
 }

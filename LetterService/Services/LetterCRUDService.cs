@@ -15,7 +15,8 @@ public class LetterCRUDService : ICRUDLetter
             PostTime = model.PostTime < DateTime.UtcNow
                        ? DateTime.UtcNow
                        : model.PostTime,
-            Message = model.Message,
+            Body = model.Body,
+            Topic= model.Topic,
             IsPosted = false,
             UserId = userId
         };
@@ -26,7 +27,8 @@ public class LetterCRUDService : ICRUDLetter
         letter.PostTime = letterForCreateDto.PostTime < DateTime.UtcNow
                        ? DateTime.UtcNow
                        : letterForCreateDto.PostTime;
-        letter.Message= letterForCreateDto.Message;
+        letter.Body = letterForCreateDto.Body;
+        letter.Topic = letterForCreateDto.Topic;
         letter.CreationTime = DateTime.UtcNow;
         letter.IsPosted = false;
     }
