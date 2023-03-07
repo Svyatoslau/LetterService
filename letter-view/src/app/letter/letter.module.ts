@@ -13,6 +13,7 @@ import { LetterListItemComponent } from './letter-list-item/letter-list-item.com
 import { LetterUserComponent } from './letter-user/letter-user.component';
 import {MatSelectModule} from '@angular/material/select'
 import { AppRoutingModule } from '../app-routing.module';
+import { AuthService } from '../services/auth.service';
 
 @NgModule({
   imports: [
@@ -38,6 +39,9 @@ import { AppRoutingModule } from '../app-routing.module';
     LetterListComponent,
     LetterListItemComponent,
     LetterUserComponent
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class LetterModule { }

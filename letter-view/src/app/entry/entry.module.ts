@@ -11,6 +11,7 @@ import {MatButtonModule} from '@angular/material/button';
 import { AppRoutingModule } from '../app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { UserService } from '../services/user.service';
+import { AuthService } from '../services/auth.service';
 
 @NgModule({
   imports: [
@@ -32,7 +33,8 @@ import { UserService } from '../services/user.service';
     RegistrationComponent
   ],
   providers: [
-    UserService
+    UserService,
+    AuthService
   ]
 })
 export class EntryModule { }

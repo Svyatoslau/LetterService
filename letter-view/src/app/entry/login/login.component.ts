@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ErrorLogin } from 'src/app/models/api/ErrorLogin';
 import { UserLogin } from 'src/app/models/api/output/UserLogin';
 import { SuccesfullLogin } from 'src/app/models/api/SuccesfullLogin';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -25,9 +26,11 @@ export class LoginComponent implements OnInit {
   public hide: boolean = true;
   public isFormValid: boolean = true;
   public errorMessage: string = '';
+
   constructor(
     private userService: UserService,
-    private router: Router) { }
+    private router: Router,
+    private authService: AuthService) { }
 
   public get emailInput() {
     return this.signin.get('email');
@@ -47,9 +50,10 @@ export class LoginComponent implements OnInit {
     this.userService.loginUser(form)
       .subscribe(
         (value: SuccesfullLogin | ErrorLogin) => {
-          console.log(value)
+          //console.log(value)
           if (this.instanceOfSuccesfullLogin(value)){
             this.userService.currentUser = value.user;
+            this.authService.authenticate(value.token);
             this.router.navigate(['/page'])
           }
           else {
