@@ -4,9 +4,13 @@
       [loginUser]="loginUser"
       [isAdmin]="isAdmin"
       [users]="users"
+      (change)="changeCurrentUser($event)"
     >
     </app-letter-user>
-    <app-letter-list></app-letter-list>
+    <app-letter-list
+      [user]="currentUser"
+    >
+    </app-letter-list>
   </div>
   <app-letter-detail></app-letter-detail>
 </div>

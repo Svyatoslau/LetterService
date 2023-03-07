@@ -1,9 +1,7 @@
-import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Role } from 'src/app/models/Role.enum';
 import { User } from 'src/app/models/User';
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-letter-user',
@@ -16,9 +14,8 @@ export class LetterUserComponent implements OnInit {
   @Input()
   public isAdmin: boolean = false;
 
-  public currentUser?: User;
-
-  //public change: EventEmitter<any> = new EventEmitter();
+  @Output()
+  public change: EventEmitter<any> = new EventEmitter();
   @Input()
   public users: User[] = [];
 
@@ -27,17 +24,14 @@ export class LetterUserComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit() { 
-    this.currentUser = this.loginUser;
-  } 
+  ngOnInit() { } 
 
   public newMessage() {
     console.log("new message");
   }
 
   public changeLetters(user: User) {
-    //this.change.emit()
-    this.currentUser = user;
+    this.change.emit(user);
   }
 
   public logout(){

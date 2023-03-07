@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Letter } from 'src/app/models/Letter';
+import { User } from 'src/app/models/User';
+import { LetterService } from 'src/app/services/letter.service';
 
 @Component({
   selector: 'app-letter-list',
@@ -7,35 +9,20 @@ import { Letter } from 'src/app/models/Letter';
   styleUrls: ['./letter-list.component.css']
 })
 export class LetterListComponent implements OnInit {
-  public letters?: Letter[] = [
-    {
-      id: 1,
-      topic: 'Test1',
-      body: 'Hello dear freind',
-      postTime: '13:40',
-      isPosted: false
-    },
-    {
-      id: 2,
-      topic: 'Test2',
-      body: 'Hello dear freind',
-      postTime: '15:40',
-      isPosted: false
-    },
-    {
-      id: 3,
-      topic: 'Test3',
-      body: 'Hello dear freind my',
-      postTime: '9:40',
-      isPosted: true
-    }
-  ]; 
+  public letters: Letter[] = []; 
+  @Input()
+  public user!: User;
 
-  public handleClick(){
-    console.log('Post')
+  constructor(private letterService: LetterService) { }
+
+  ngOnInit() {
+    this.letterService.getLetters(this.user.id)
+      .subscribe(
+        (letters: Letter[]) => {
+          this.letters = letters;
+        }
+      )
   }
-
-  constructor() { }
 
   public getPostedLetters(): Letter[] | undefined{
     return this.letters?.filter(letter => letter.isPosted);
@@ -45,7 +32,10 @@ export class LetterListComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
+  
 
+
+  public handleClick(){
+    console.log('Post')
+  }
 }

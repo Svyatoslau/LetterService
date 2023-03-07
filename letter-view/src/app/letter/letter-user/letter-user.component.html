@@ -21,7 +21,7 @@
 <ng-template #adminBlock>
   <mat-form-field appearance="fill">
     <mat-label>Choese user</mat-label>
-    <mat-select [value]="currentUser?.email">
+    <mat-select [value]="loginUser?.email">
       <mat-option  
         *ngFor="let user of users"
         [value]="user.email"

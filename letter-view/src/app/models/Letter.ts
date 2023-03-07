@@ -2,6 +2,6 @@ export interface Letter {
     id: number,
     topic: string,
     body: string,
-    postTime: string,
+    postTime: Date,
     isPosted: boolean
 }

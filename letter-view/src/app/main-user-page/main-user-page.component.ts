@@ -34,4 +34,7 @@ export class MainUserPageComponent implements OnInit {
     }
   }
 
+  public changeCurrentUser(user: User){
+    this.currentUser = user;
+  }
 }
