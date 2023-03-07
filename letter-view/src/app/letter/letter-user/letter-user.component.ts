@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit } from '@angular/core';
 import { Role } from 'src/app/models/Role.enum';
 import { User } from 'src/app/models/User';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-letter-user',
@@ -9,46 +10,31 @@ import { User } from 'src/app/models/User';
 })
 export class LetterUserComponent implements OnInit {
   @Input()
-  public currentUser: User = {
-    id: 4,
-    email: 'ddd@ad',
-    role: Role.admin
-  };
+  public loginUser?: User;
+  @Input()
+  public isAdmin: boolean = false;
 
-  public users: User[] = [
-    {
-      id: 3,
-      email: 'ddd@ad',
-      role: Role.admin
-    },
-    {
-      id: 1,
-      email: 'cc@ad',
-      role: Role.user
-    },
-    {
-      id: 2,
-      email: 'aa@a22',
-      role: Role.user
-    },
-  ]
+  public currentUser?: User;
 
-  constructor() {
-   }
-  
-  public isAdmin(): boolean {
-    return this.currentUser.role == Role.admin;
-  }
+  //public change: EventEmitter<any> = new EventEmitter();
+
+  public users: User[] = []
+
+  constructor() {}
+
+  ngOnInit() { 
+    this.currentUser = this.loginUser;
+  } 
 
   public newMessage() {
     console.log("new message");
   }
 
   public changeLetters(user: User) {
-    console.log(user);
+    //this.change.emit()
+    this.currentUser = user;
   }
 
-  ngOnInit() {
-  }
+
 
 }

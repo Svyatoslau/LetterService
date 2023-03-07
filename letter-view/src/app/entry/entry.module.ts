@@ -9,6 +9,8 @@ import {MatIconModule} from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
 import { AppRoutingModule } from '../app-routing.module';
+import { HttpClientModule } from '@angular/common/http';
+import { UserService } from '../services/user.service';
 
 @NgModule({
   imports: [
@@ -18,7 +20,8 @@ import { AppRoutingModule } from '../app-routing.module';
     MatIconModule,
     MatInputModule,
     MatButtonModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   declarations: [
     LoginComponent,
@@ -27,6 +30,9 @@ import { AppRoutingModule } from '../app-routing.module';
   exports: [
     LoginComponent,
     RegistrationComponent
+  ],
+  providers: [
+    UserService
   ]
 })
 export class EntryModule { }

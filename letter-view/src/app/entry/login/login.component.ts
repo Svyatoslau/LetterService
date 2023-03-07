@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+import { ErrorLogin } from 'src/app/models/api/ErrorLogin';
+import { UserLogin } from 'src/app/models/api/output/UserLogin';
+import { SuccesfullLogin } from 'src/app/models/api/SuccesfullLogin';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +24,11 @@ export class LoginComponent implements OnInit {
 
   public hide: boolean = true;
   public isFormValid: boolean = true;
-  
+  public errorMessage: string = '';
+  constructor(
+    private userService: UserService,
+    private router: Router) { }
+
   public get emailInput() {
     return this.signin.get('email');
   }
@@ -29,15 +38,41 @@ export class LoginComponent implements OnInit {
   }
   
   public pushForm(){
-    if (this.passwordInput?.invalid || this.emailInput?.invalid){
-      this.isFormValid = false;
+    let form: UserLogin = {
+      email: this.emailInput?.value,
+      password: this.passwordInput?.value
     }
+     
+
+    this.userService.loginUser(form)
+      .subscribe(
+        (value: SuccesfullLogin | ErrorLogin) => {
+          console.log(value)
+          if (this.instanceOfSuccesfullLogin(value)){
+            this.userService.currentUser = value.user;
+            this.router.navigate(['/page'])
+          }
+          else {
+            this.signin.reset();
+            this.isFormValid = false,
+            this.errorMessage = value.message
+          }
+        }
+      )
   }
   
+  private instanceOfSuccesfullLogin(object: any): object is SuccesfullLogin {
+    try{
+      return 'user' in object && 'token' in object
+    }
+    catch {
+      return false;
+    }
+  }
 
 
 
-constructor() { }
+
 
   ngOnInit() {
   }

@@ -2,7 +2,7 @@
   <h1>Sign in to LetSer</h1>
 
   <p *ngIf="!isFormValid" class="login-error-validation">
-    Incorrect password or email address
+    {{errorMessage}}
   </p>
 
   <form [formGroup]="signin">
@@ -48,7 +48,6 @@
     >
       Sign In
     </button>
-
   </form>
 
   <p class="login-callout">
