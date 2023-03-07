@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Role } from 'src/app/models/Role.enum';
 import { User } from 'src/app/models/User';
 import { UserService } from 'src/app/services/user.service';
@@ -20,7 +21,7 @@ export class LetterUserComponent implements OnInit {
 
   public users: User[] = []
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() { 
     this.currentUser = this.loginUser;
@@ -35,6 +36,12 @@ export class LetterUserComponent implements OnInit {
     this.currentUser = user;
   }
 
+  public logout(){
+    // добавить удаление токена
+    this.router.navigate(['/login']);
+  }
 
-
+  public createAdmin() {
+    
+  }
 }

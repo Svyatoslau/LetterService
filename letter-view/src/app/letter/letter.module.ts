@@ -12,6 +12,7 @@ import {MatListModule} from '@angular/material/list';
 import { LetterListItemComponent } from './letter-list-item/letter-list-item.component';
 import { LetterUserComponent } from './letter-user/letter-user.component';
 import {MatSelectModule} from '@angular/material/select'
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {MatSelectModule} from '@angular/material/select'
     MatButtonModule,
     DateTimePickerModule,
     MatListModule,
-    MatSelectModule
+    MatSelectModule,
+    AppRoutingModule
   ],
   declarations: [
     LetterDetailComponent,
