@@ -8,8 +8,7 @@ public class LetterServiceProfile : Profile
 {
     public LetterServiceProfile()
     {
-        CreateMap<Letter, LetterDto>()
-            .ForMember(dest => dest.PostTime, opt => opt.MapFrom(src => src.PostTime.ToUniversalTime()));
+        CreateMap<Letter, LetterDto>();
         CreateMap<User, UserDto>();
     }
 }

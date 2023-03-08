@@ -37,8 +37,9 @@ public class BackgroundLetterService : IBackgroundLetter
     {
         using (LetterServiceDbContext context = new LetterServiceDbContext(_options))
         {
+            Console.WriteLine(DateTime.UtcNow);
             await context.Letters
-            .Where(l => !l.IsPosted && l.PostTime < DateTime.UtcNow)
+            .Where(l => !l.IsPosted && l.PostTime < DateTime.Now)
             .Join(
                 context.Users,
                 l => l.UserId,
@@ -51,7 +52,7 @@ public class BackgroundLetterService : IBackgroundLetter
             )
             .ForEachAsync(letterObject =>
             {
-                letterObject.letter.IsPosted = true;
+                
                 try
                 {
                     var email = new MimeMessage();
@@ -69,9 +70,11 @@ public class BackgroundLetterService : IBackgroundLetter
                     smtp.Authenticate(_hostUser, _hostPassword);
                     smtp.Send(email);
                     smtp.Disconnect(true);
+                    letterObject.letter.IsPosted = true;
                 }
                 catch (Exception ex)
                 {
+                    Console.WriteLine(ex.ToString());
                     letterObject.letter.IsPosted = false;
                 }
             });
