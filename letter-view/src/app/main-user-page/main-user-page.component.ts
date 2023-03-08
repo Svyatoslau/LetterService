@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { LetterForCreation } from '../models/api/LetterForCreation';
+import { LetterForUpdate } from '../models/api/LetterForUpdate';
 import { Letter } from '../models/Letter';
 import { Role } from '../models/Role.enum';
 import { User } from '../models/User';
@@ -83,10 +84,33 @@ export class MainUserPageComponent implements OnInit {
     this.letterService.deleteLetter(this.currentUser.id, letterForDelete.id)
       .subscribe(
         letter => {
-          this.subjectLetter.next(this.getEmptyLetter());
+          this.changeLetterDetail(this.getEmptyLetter());
           this.letters = this.letters.filter(l => l.id !== letter.id);
         }
       )
+  }
+
+  public updateLetter(letterForUpdate: LetterForUpdate){
+    if(letterForUpdate.id < 0) return;
+      
+    
+    this.letterService.updateLetter(
+      this.currentUser.id,
+      letterForUpdate.id,
+      letterForUpdate.model
+    )
+    .subscribe(
+      letter => {
+        let letterUpdate = this.letters.find(l => l.id === letter.id);
+        if (letterUpdate){
+          letterUpdate=letter;
+          this.changeLetterDetail(letterUpdate);
+          this.letters = this.letters.filter(l => l.id !== letter.id);
+          this.letters.push(letterUpdate);
+        }
+        
+      }
+    )
   }
 
   private getEmptyLetter() : Letter {

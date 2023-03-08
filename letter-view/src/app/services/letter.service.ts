@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import * as moment from 'moment';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { LetterForCreation } from '../models/api/LetterForCreation';
@@ -43,7 +44,7 @@ export class LetterService {
     )
     .pipe(
       tap(letter =>{
-          this.convertDate(letter);
+          letter.postTime = new Date(letter.postTime)
         }
       ),
       catchError(this.handleError<Letter>('createLetter'))
@@ -62,7 +63,7 @@ export class LetterService {
     )
     .pipe(
       tap(letter =>{
-          this.convertDate(letter);
+          letter.postTime = new Date(letter.postTime)
         }
       ),
       catchError(this.handleError<Letter>('updateLetter'))
@@ -93,10 +94,9 @@ export class LetterService {
   }
 
   private convertDate(letter: Letter){
-    //console.log(`before ${letter.postTime}`);
-    
     letter.postTime = new Date(letter.postTime)
-    //console.log(letter.postTime);
+    let timeOffsetInMS:number = letter.postTime.getTimezoneOffset() * 60000;
+    letter.postTime.setTime(letter.postTime.getTime() - timeOffsetInMS);
   }
   
 }

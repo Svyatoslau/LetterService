@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { distinctUntilChanged, Observable, of, Subject } from 'rxjs';
 import { LetterForCreation } from 'src/app/models/api/LetterForCreation';
+import { LetterForUpdate } from 'src/app/models/api/LetterForUpdate';
 import { Letter } from 'src/app/models/Letter';
 
 @Component({
@@ -34,6 +35,8 @@ export class LetterDetailComponent implements OnInit {
   public create: EventEmitter<any> = new EventEmitter();
   @Output()
   public delete: EventEmitter<any> = new EventEmitter();
+  @Output()
+  public update: EventEmitter<any> = new EventEmitter();
 
   public letter?: Letter;
   constructor() { }
@@ -71,7 +74,15 @@ export class LetterDetailComponent implements OnInit {
   }
 
   public updateLetter(){
-
+    let model : LetterForUpdate = {
+      model: {
+        postTime: this.date,
+        topic: this.topicInput?.value,
+        body: this.bodyInput?.value
+      },
+      id: this.letter ? this.letter.id : -1
+    }
+    this.update.emit(model);
   }
 
   public handleUpdateDate(date: Date){
