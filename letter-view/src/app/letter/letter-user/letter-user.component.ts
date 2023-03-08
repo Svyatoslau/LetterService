@@ -16,6 +16,8 @@ export class LetterUserComponent implements OnInit {
 
   @Output()
   public change: EventEmitter<any> = new EventEmitter();
+  @Output()
+  public clickMessage: EventEmitter<any> = new EventEmitter();
   @Input()
   public users: User[] = [];
 
@@ -28,6 +30,7 @@ export class LetterUserComponent implements OnInit {
 
   public newMessage() {
     console.log("new message");
+    this.clickMessage.emit();
   }
 
   public changeLetters(user: User) {

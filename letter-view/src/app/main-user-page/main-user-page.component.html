@@ -5,6 +5,7 @@
       [isAdmin]="isAdmin"
       [users]="users"
       (change)="changeLettersList($event)"
+      (clickMessage)="clickNewMessage()"
     >
     </app-letter-user>
     <app-letter-list
@@ -16,6 +17,7 @@
   <app-letter-detail
     [subjectLetter]="subjectLetter"
     [email]="currentUser ? currentUser.email : ''"
+    (create)="createLetter($event)"
   >
   </app-letter-detail>
 </div>

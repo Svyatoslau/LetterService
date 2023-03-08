@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
+import { LetterForCreation } from '../models/api/LetterForCreation';
 import { Letter } from '../models/Letter';
 
 @Injectable({
@@ -34,6 +35,56 @@ export class LetterService {
     )
   }
 
+  public createLetter(userId: number, model: LetterForCreation) : Observable<Letter>{
+    return this.http.post<Letter>(
+      `${this.apiUrl}/user/${userId}/letter`,
+      model,
+      this.httpOptions
+    )
+    .pipe(
+      tap(letter =>{
+          this.convertDate(letter);
+        }
+      ),
+      catchError(this.handleError<Letter>('createLetter'))
+    )
+  }
+
+  public updateLetter(
+    userId: number,
+    letterId: number,
+    model: LetterForCreation
+  ) : Observable<Letter> {
+    return this.http.put<Letter>(
+      `${this.apiUrl}/user/${userId}/letter/${letterId}`,
+      model,
+      this.httpOptions
+    )
+    .pipe(
+      tap(letter =>{
+          this.convertDate(letter);
+        }
+      ),
+      catchError(this.handleError<Letter>('updateLetter'))
+    )
+  }
+
+  public deleteLetter(userId: number, letterId: number) : Observable<Letter> {
+    return this.http.delete<Letter>(
+      `${this.apiUrl}/user/${userId}/letter/${letterId}`,
+      this.httpOptions
+    )
+    .pipe(
+      tap(letter =>{
+          this.convertDate(letter);
+        }
+      ),
+      catchError(this.handleError<Letter>('deleteLetter'))
+    )
+  }
+
+
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> =>{
       console.log(error);
@@ -42,9 +93,10 @@ export class LetterService {
   }
 
   private convertDate(letter: Letter){
-    console.log(`before ${letter.postTime}`);
+    //console.log(`before ${letter.postTime}`);
     
     letter.postTime = new Date(letter.postTime)
-    console.log(letter.postTime);
+    //console.log(letter.postTime);
   }
+  
 }

@@ -18,10 +18,10 @@ export class LetterListComponent implements OnInit {
   ngOnInit() { }
 
   public getPostedLetters(): Letter[] | undefined{
-    return this.letters?.filter(letter => letter.isPosted);
+    return this.letters?.filter(letter => letter.isPosted).sort((a, b) => b.postTime.getTime() - a.postTime.getTime());
   }
   public getUnpostedLetters(): Letter[] | undefined{
-    return this.letters?.filter(letter => !letter.isPosted);
+    return this.letters?.filter(letter => !letter.isPosted).sort((a, b) => b.postTime.getTime() - a.postTime.getTime());
   }
 
   public handleClick(letter: Letter){

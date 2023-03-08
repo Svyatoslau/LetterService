@@ -1,6 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { distinctUntilChanged, Observable, of, Subject } from 'rxjs';
+import { LetterForCreation } from 'src/app/models/api/LetterForCreation';
 import { Letter } from 'src/app/models/Letter';
 
 @Component({
@@ -29,6 +30,9 @@ export class LetterDetailComponent implements OnInit {
   @Input()
   public email: string = ''
 
+  @Output()
+  public create: EventEmitter<any> = new EventEmitter();
+
   public letter?: Letter;
   constructor() { }
 
@@ -43,11 +47,20 @@ export class LetterDetailComponent implements OnInit {
   public get bodyInput(){
     return this.letterForm.get('body');
   }
-  public pushLetter() {
-
+  public sendLetter() {
+    let createdFormLetter: LetterForCreation = {
+      postTime: this.date,
+      topic: this.topicInput?.value,
+      body: this.bodyInput?.value
+    }
+    this.create.emit(createdFormLetter);
   }
 
   public deleteLetter(){
+
+  }
+
+  public updateLetter(){
 
   }
 
@@ -62,6 +75,8 @@ export class LetterDetailComponent implements OnInit {
     ).subscribe(
       (letter: Letter) =>{
         this.emailInput?.setValue(this.email)
+        this.topicInput?.setValue(letter.topic)
+        this.bodyInput?.setValue(letter.body)
         this.letter = letter;
         this.date = this.letter.postTime
       }
