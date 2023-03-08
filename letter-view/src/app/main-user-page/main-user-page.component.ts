@@ -15,10 +15,10 @@ import { UserService } from '../services/user.service';
 export class MainUserPageComponent implements OnInit {
   public isAdmin: boolean = false;
   public loginUser?: User;
+  public currentUser?: User;
   public users: User[] = [];
   public letters: Letter[] = [];
   public subjectLetter: Subject<Letter> = new Subject<Letter>;
-
   constructor(
     private userService: UserService,
     private authService: AuthService,
@@ -27,11 +27,11 @@ export class MainUserPageComponent implements OnInit {
 
   ngOnInit() {
     this.loginUser = this.authService.getLoginUser();
+    this.currentUser = this.loginUser;
     this.letterService.getLetters(this.loginUser.id)
     .subscribe(
       (letters: Letter[]) => {
         this.letters = letters;
-        this.subjectLetter.next(letters[0]);
         console.log(letters[0]);
       }
     )
@@ -47,16 +47,27 @@ export class MainUserPageComponent implements OnInit {
   }
 
   public changeLettersList(user: User){
+    this.currentUser = user;
     this.letterService.getLetters(user.id)
       .subscribe(
         (letters: Letter[]) => {
+          this.subjectLetter.next(this.getEmptyLetter())
           this.letters = letters;
-          this.subjectLetter.next(letters[0])
         }
       )
   }
 
   public changeLetterDetail(letter: Letter) {
     this.subjectLetter.next(letter);
+  }
+
+  private getEmptyLetter() : Letter {
+    return {
+      id: -1,
+      isPosted: false,
+      body: '',
+      postTime: new Date(),
+      topic: ''
+    }
   }
 }

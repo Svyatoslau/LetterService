@@ -56,13 +56,16 @@ export class LetterDetailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.emailInput?.setValue(this.email)
     this.subjectLetter.pipe(
       distinctUntilChanged()
     ).subscribe(
       (letter: Letter) =>{
+        this.emailInput?.setValue(this.email)
         this.letter = letter;
         this.date = this.letter.postTime
       }
     );
+
   }
 }

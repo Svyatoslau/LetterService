@@ -6,6 +6,7 @@
         type="email"
         matInput
         formControlName="email"
+        [value]="email"
       >
     </mat-form-field>
 
@@ -44,7 +45,7 @@
         (click)="pushLetter()"
         [disabled]="letterForm.invalid"
       >
-      Send
+      {{ !letter || letter.isPosted || letter.id == -1 ? 'Send' : 'Update'}}
       </button>
       <button
         class="delete-button"

@@ -15,7 +15,7 @@
   </div>
   <app-letter-detail
     [subjectLetter]="subjectLetter"
-    [email]="loginUser ? loginUser.email : ''"
+    [email]="currentUser ? currentUser.email : ''"
   >
   </app-letter-detail>
 </div>
