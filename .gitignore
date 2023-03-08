@@ -401,3 +401,5 @@ letter-view/typings
 # System files
 letter-view/.DS_Store
 letter-view/Thumbs.db
+
+letter-view/package-lock.json
