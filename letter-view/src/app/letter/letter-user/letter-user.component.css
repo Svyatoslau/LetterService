@@ -21,3 +21,6 @@
 button{
     margin-bottom: 10px;
 }
+.admin-button{
+    display: none;
+}

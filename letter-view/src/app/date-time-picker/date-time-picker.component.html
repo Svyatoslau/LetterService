@@ -2,6 +2,7 @@
   <input
     matInput
     [(ngModel)]="date"
+    [min]="minDate"
     [ngxMatDatetimePicker]="picker"
     placeholder="Choose a date"
     (dateChange)="dateUpdated()">

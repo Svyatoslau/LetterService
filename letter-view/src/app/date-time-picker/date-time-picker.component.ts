@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class DateTimePickerComponent implements OnInit {
   @Input()
   public date: Date = new Date();
-
+  public minDate: Date = new Date();
 
   @Output()
   public update: EventEmitter<any> = new EventEmitter();

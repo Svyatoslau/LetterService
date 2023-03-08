@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { ErrorLogin } from '../models/api/ErrorLogin';
+import { ErrorMessage } from '../models/api/ErrorMessage';
 import { UserLogin } from '../models/api/output/UserLogin';
 import { SuccesfullLogin } from '../models/api/SuccesfullLogin';
 import { User } from '../models/User';
@@ -28,6 +29,19 @@ export class UserService {
     .pipe(
       catchError((error: any): Observable<ErrorLogin> => { 
         return of(error.error as ErrorLogin);
+      })
+    );
+  }
+
+  public registrUser(form: UserLogin): Observable<User | ErrorMessage> {
+    return this.http.post<User | ErrorMessage>(
+      `${this.apiUrl}/user/register`,
+      form,
+      this.httpOptions
+    )
+    .pipe(
+      catchError((error: any): Observable<ErrorMessage> => { 
+        return of(error.error as ErrorMessage);
       })
     );
   }

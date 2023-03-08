@@ -1,9 +1,14 @@
 <div class="registr-form">
   <h1>Sign up to LetSer</h1>
 
+  <p *ngIf="!isFormValid" class="login-error-validation">
+    {{errorMessage}}
+  </p>
+
+
   <form [formGroup]="register">
 
-    <mat-form-field>
+    <mat-form-field (click)="isFormValid=true">
       <mat-label>Email</mat-label>
       <input
         type="email"
@@ -19,7 +24,7 @@
       </mat-error>
     </mat-form-field>
     
-    <mat-form-field>
+    <mat-form-field (click)="isFormValid=true">
       <mat-label>Password</mat-label>
       <input 
         matInput 
@@ -39,7 +44,7 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field>
+    <mat-form-field (click)="isFormValid=true">
       <mat-label>Confirm password</mat-label>
       <input 
         matInput 
