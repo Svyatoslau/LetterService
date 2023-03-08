@@ -30,7 +30,7 @@ public class CreateTokenService : ICreateToken
             issuer: _config["Jwt:Issuer"],
             audience: user.Email,
             claims: claims,
-            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(5)),
+            expires: DateTime.UtcNow.Add(TimeSpan.FromMinutes(40)),
             signingCredentials: signingCredentials
         );
 
