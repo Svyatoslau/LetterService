@@ -32,6 +32,8 @@ export class LetterDetailComponent implements OnInit {
 
   @Output()
   public create: EventEmitter<any> = new EventEmitter();
+  @Output()
+  public delete: EventEmitter<any> = new EventEmitter();
 
   public letter?: Letter;
   constructor() { }
@@ -57,7 +59,15 @@ export class LetterDetailComponent implements OnInit {
   }
 
   public deleteLetter(){
-
+    let letterId: number = this.letter ? this.letter.id : -1
+    if (letterId >= 0) {
+      this.delete.emit(this.letter);
+    }
+    else {
+      this.bodyInput?.setValue('');
+      this.topicInput?.setValue('');
+      this.date = new Date();
+    }
   }
 
   public updateLetter(){

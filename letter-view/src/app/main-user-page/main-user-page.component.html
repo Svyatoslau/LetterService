@@ -18,6 +18,7 @@
     [subjectLetter]="subjectLetter"
     [email]="currentUser ? currentUser.email : ''"
     (create)="createLetter($event)"
+    (delete)="deleteLetter($event)"
   >
   </app-letter-detail>
 </div>

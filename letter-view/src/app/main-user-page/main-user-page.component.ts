@@ -79,6 +79,16 @@ export class MainUserPageComponent implements OnInit {
     this.subjectLetter.next(this.getEmptyLetter());
   }
 
+  public deleteLetter(letterForDelete: Letter) {
+    this.letterService.deleteLetter(this.currentUser.id, letterForDelete.id)
+      .subscribe(
+        letter => {
+          this.subjectLetter.next(this.getEmptyLetter());
+          this.letters = this.letters.filter(l => l.id !== letter.id);
+        }
+      )
+  }
+
   private getEmptyLetter() : Letter {
     return {
       id: -1,
