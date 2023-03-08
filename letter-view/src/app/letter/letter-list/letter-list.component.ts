@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Letter } from 'src/app/models/Letter';
 
 @Component({
@@ -8,9 +8,11 @@ import { Letter } from 'src/app/models/Letter';
 })
 export class LetterListComponent implements OnInit {
   @Input()
-
   public letters: Letter[] = []; 
-  
+
+  @Output()
+  public update: EventEmitter<any> = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() { }
@@ -22,7 +24,7 @@ export class LetterListComponent implements OnInit {
     return this.letters?.filter(letter => !letter.isPosted);
   }
 
-  public handleClick(){
-    console.log('Post')
+  public handleClick(letter: Letter){
+    this.update.emit(letter);
   }
 }

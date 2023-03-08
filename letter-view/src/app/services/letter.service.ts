@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { catchError, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Letter } from '../models/Letter';
 
@@ -25,6 +25,11 @@ export class LetterService {
       this.httpOptions
     )
     .pipe(
+      tap(
+        letters => {
+          letters.forEach(letter => this.convertDate(letter))
+        }
+      ),
       catchError(this.handleError('getLetters', []))
     )
   }
@@ -36,4 +41,10 @@ export class LetterService {
     }
   }
 
+  private convertDate(letter: Letter){
+    console.log(`before ${letter.postTime}`);
+    
+    letter.postTime = new Date(letter.postTime)
+    console.log(letter.postTime);
+  }
 }

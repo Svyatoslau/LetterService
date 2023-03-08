@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { distinctUntilChanged, Observable, of, Subject } from 'rxjs';
 import { Letter } from 'src/app/models/Letter';
 
 @Component({
@@ -21,11 +22,14 @@ export class LetterDetailComponent implements OnInit {
     ])
   });
 
-  public date: string = "";
-
+  public date: Date = new Date();
+  
   @Input()
-  public letter?: Letter;
+  public subjectLetter!: Subject<Letter>
+  @Input()
+  public email: string = ''
 
+  public letter?: Letter;
   constructor() { }
 
   public get emailInput() {
@@ -47,10 +51,18 @@ export class LetterDetailComponent implements OnInit {
 
   }
 
-  public handleUpdateDate(date:string){
+  public handleUpdateDate(date: Date){
     this.date = date;
   }
 
   ngOnInit() {
+    this.subjectLetter.pipe(
+      distinctUntilChanged()
+    ).subscribe(
+      (letter: Letter) =>{
+        this.letter = letter;
+        this.date = this.letter.postTime
+      }
+    );
   }
 }

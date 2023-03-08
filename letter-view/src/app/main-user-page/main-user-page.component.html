@@ -4,13 +4,18 @@
       [loginUser]="loginUser"
       [isAdmin]="isAdmin"
       [users]="users"
-      (change)="changeLetters($event)"
+      (change)="changeLettersList($event)"
     >
     </app-letter-user>
     <app-letter-list
       [letters]="letters"
+      (update)="changeLetterDetail($event)"
     >
     </app-letter-list>
   </div>
-  <app-letter-detail></app-letter-detail>
+  <app-letter-detail
+    [subjectLetter]="subjectLetter"
+    [email]="loginUser ? loginUser.email : ''"
+  >
+  </app-letter-detail>
 </div>
