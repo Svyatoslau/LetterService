@@ -1,20 +1,22 @@
 <div class="user-container">
   <div class="user-head-container">
     <h3>{{ isAdmin ? "Admin": "User"}} : {{loginUser?.email}}</h3>
-    <button
-      mat-icon-button
-      class="close-button"
-      (click)="logout()"
-    >
-      <mat-icon class="close-icon" color="warn">close</mat-icon>
-    </button>
   </div>
+  
   <div *ngIf="isAdmin; then adminBlock"></div>
   <button
     mat-raised-button
     (click)="newMessage()"
   >
-  New Message
+    New Message
+  </button>
+  <button
+    mat-stroked-button
+    class="close-button"
+    (click)="logout()"
+    color="warn"
+  >
+    Logout
   </button>
 </div>
 

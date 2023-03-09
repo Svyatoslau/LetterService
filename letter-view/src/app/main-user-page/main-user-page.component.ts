@@ -93,7 +93,6 @@ export class MainUserPageComponent implements OnInit {
   public updateLetter(letterForUpdate: LetterForUpdate){
     if(letterForUpdate.id < 0) return;
       
-    
     this.letterService.updateLetter(
       this.currentUser.id,
       letterForUpdate.id,
