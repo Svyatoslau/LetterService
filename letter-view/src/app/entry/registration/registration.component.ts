@@ -21,11 +21,11 @@ export class RegistrationComponent implements OnInit {
     ]),
     password: new FormControl('', [
       Validators.required,
-      Validators.minLength(4)
+      Validators.minLength(8)
     ]),
     confirmPassword: new FormControl('', [
       Validators.required,
-      Validators.minLength(4)
+      Validators.minLength(8)
     ])
   });
 
