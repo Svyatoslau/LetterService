@@ -14,6 +14,8 @@ import { LetterUserComponent } from './letter-user/letter-user.component';
 import {MatSelectModule} from '@angular/material/select'
 import { AppRoutingModule } from '../app-routing.module';
 import { AuthService } from '../services/auth.service';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   imports: [
@@ -26,13 +28,15 @@ import { AuthService } from '../services/auth.service';
     DateTimePickerModule,
     MatListModule,
     MatSelectModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MatDialogModule
   ],
   declarations: [
     LetterDetailComponent,
     LetterListComponent,
     LetterListItemComponent,
-    LetterUserComponent
+    LetterUserComponent,
+    ConfirmationDialogComponent
   ],
   exports: [
     LetterDetailComponent,
@@ -42,6 +46,9 @@ import { AuthService } from '../services/auth.service';
   ],
   providers: [
     AuthService
+  ],
+  entryComponents: [
+    ConfirmationDialogComponent
   ]
 })
 export class LetterModule { }

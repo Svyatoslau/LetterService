@@ -1,9 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
 import { distinctUntilChanged, Observable, of, Subject } from 'rxjs';
 import { LetterForCreation } from 'src/app/models/api/LetterForCreation';
 import { LetterForUpdate } from 'src/app/models/api/LetterForUpdate';
 import { Letter } from 'src/app/models/Letter';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-letter-detail',
@@ -39,7 +41,7 @@ export class LetterDetailComponent implements OnInit {
   public update: EventEmitter<any> = new EventEmitter();
 
   public letter?: Letter;
-  constructor() { }
+  constructor(private dialog: MatDialog) { }
 
   public get emailInput() {
     return this.letterForm.get('email');
@@ -71,6 +73,24 @@ export class LetterDetailComponent implements OnInit {
       this.topicInput?.setValue('');
       this.date = new Date();
     }
+  }
+
+  public openDialog(){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        message: 'Are you sure want to delete?',
+        buttonText: {
+          ok: 'Delete',
+          cancel: 'No'
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.deleteLetter()
+      }
+    })
   }
 
   public updateLetter(){
