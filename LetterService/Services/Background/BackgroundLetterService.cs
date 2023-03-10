@@ -13,24 +13,31 @@ public class BackgroundLetterService : IBackgroundLetter
     private readonly string? _port;
     private readonly string? _hostUser;
     private readonly string? _hostPassword;
-    private readonly DbContextOptions<LetterServiceDbContext> _options;
-    public BackgroundLetterService(IConfiguration config)
+    private readonly IServiceProvider _serviceProvider;
+    private readonly ILogger<BackgroundLetterService> _logger;
+    public BackgroundLetterService(
+        IConfiguration config,
+        IServiceProvider serviceProvider,
+        ILogger<BackgroundLetterService> logger
+    )
     {
-        _config = config;
+        (_config, _serviceProvider, _logger) = 
+            (config, serviceProvider, logger);
+
         var smtpConfig = _config.GetSection("Smtp");
         _host = smtpConfig["host"];
         _port = smtpConfig["port"];
         _hostUser = smtpConfig["auth:user"];
         _hostPassword = smtpConfig["auth:pass"];
-        string? connection = config.GetConnectionString("DefaultConnection");
-        _options = new DbContextOptionsBuilder<LetterServiceDbContext>()
-            .UseSqlServer(connection).Options;
     }
     public async Task SendLettersAsync()
     {
-        using (LetterServiceDbContext context = new LetterServiceDbContext(_options))
+        using (var scope = _serviceProvider.CreateScope())
         {
-            Console.WriteLine(DateTime.UtcNow);
+            var context = scope.ServiceProvider.GetService<LetterServiceDbContext>();
+
+            _logger.LogInformation($"Current UTC Time on server: {DateTime.UtcNow}");
+
             await context.Letters
             .Where(l => !l.IsPosted && l.PostTime < DateTime.UtcNow)
             .Include(l => l.User)
@@ -57,7 +64,7 @@ public class BackgroundLetterService : IBackgroundLetter
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.ToString());
+                    _logger.LogError(ex.Message);
                     letter.IsPosted = false;
                 }
             });
@@ -68,11 +75,13 @@ public class BackgroundLetterService : IBackgroundLetter
     }
     public async Task RemovePostedLetttersAsync()
     {
-        using (LetterServiceDbContext context = new LetterServiceDbContext(_options))
+        using (var scope = _serviceProvider.CreateScope())
         {
+            var context = scope.ServiceProvider.GetService<LetterServiceDbContext>();
+
             await context.Letters
-            .Where(letter => letter.IsPosted)
-            .ExecuteDeleteAsync();
+                .Where(letter => letter.IsPosted)
+                .ExecuteDeleteAsync();
         }
 
     }
