@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using LetterService.Attributes;
 using LetterService.DAL.Entities;
+using LetterService.Models;
 using LetterService.Models.API;
 using LetterService.Models.DTO;
 using LetterService.Services.Security;
@@ -12,7 +14,7 @@ using Microsoft.EntityFrameworkCore.Internal;
 using Microsoft.IdentityModel.Tokens;
 
 namespace LetterService.Controllers;
-[Route("api/user")]
+[Route("api")]
 [ApiController]
 public class UserController : ControllerBase
 {
@@ -20,10 +22,15 @@ public class UserController : ControllerBase
     private readonly ILogin _loginService;
     private readonly IRegister _registerService;
     private readonly IMapper _mapper;
-    public UserController(LetterServiceDbContext context, ILogin loginService, IRegister registerService, IMapper mapper) =>
-        (_context, _loginService, _registerService, _mapper) = (context, loginService, registerService, mapper);
+    public UserController(
+        LetterServiceDbContext context,
+        ILogin loginService,
+        IRegister registerService,
+        IMapper mapper) =>
+        (_context, _loginService, _registerService, _mapper)
+        = (context, loginService, registerService, mapper);
 
-    [HttpPost("login")]
+    [HttpPost("user/login")]
     public async Task<ActionResult> LoginAsync(
         [FromBody] UserLoginModel model
     )
@@ -33,15 +40,13 @@ public class UserController : ControllerBase
         {
             return BadRequest(new BadLogin { User = model.Email });
         }
-
-        var token  = _loginService.Login(user, model.Password);
+        var token = _loginService.Login(user, model.Password);
         if (token.IsNullOrEmpty())
         {
             return BadRequest(new BadLogin { User = model.Email });
         }
-        
-        var userDto = _mapper.Map<UserDto>(user);
 
+        var userDto = _mapper.Map<UserDto>(user);
         return Ok(new
         {
             User = userDto,
@@ -49,7 +54,7 @@ public class UserController : ControllerBase
         });
     }
 
-    [HttpPost("register")]
+    [HttpPost("user/register")]
     public async Task<ActionResult> RegisterAsync(
         [FromBody] UserLoginModel model
     )
@@ -59,15 +64,23 @@ public class UserController : ControllerBase
         {
             return BadRequest(new { message = $"EROR user: {model.Email} Exists" });
         }
-            
 
         User newUser = _registerService.CreateUser(model, Models.Role.User);
-        
+
         await _context.AddAsync(newUser);
         await _context.SaveChangesAsync();
-
         var newUserDto = _mapper.Map<UserDto>(newUser);
 
         return Ok(newUserDto);
     }
+
+    [HttpGet("users")]
+    [AuthorizeRoles(Role.Admin)]
+    public async Task<ActionResult> GetUsers()
+    {
+        var users = await _context.Users.ToListAsync();
+        var usersDto = _mapper.Map<IEnumerable<UserDto>>(users);
+        return Ok(usersDto);
+    }
+
 }

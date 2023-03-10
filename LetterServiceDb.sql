@@ -1,12 +1,9 @@
 USE [master]
 GO
-
 CREATE DATABASE [LetterService]
 Go
-
 USE [LetterService]
 GO
-
 CREATE TABLE [Users]
 (
 	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -15,19 +12,17 @@ CREATE TABLE [Users]
 	[Role] INT NOT NULL
 )
 GO
-
 CREATE TABLE [Letters]
 (
 	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	PostTime DATETIME NOT NULL,
-	[Message] NVARCHAR(1000) NOT NULL,
+	[Topic] NVARCHAR(50) NOT NULL,
+	[Body] NVARCHAR(1000) NOT NULL,
 	IsPosted BIT NOT NULL,
 	CreationTime DATETIME NOT NULL,
 	[UserId] INT NOT NULL REFERENCES [Users] (Id)
 )
 Go
-
-
 INSERT INTO [Users] ([Email], [Password], [Role])
 VALUES
 (
@@ -41,19 +36,37 @@ VALUES
 	1
 );
 
-INSERT INTO [Letters] (PostTime, [Message], IsPosted, CreationTime, UserId)
+INSERT INTO [Letters] (PostTime, [Topic], [Body], IsPosted, CreationTime, UserId)
 VALUES
 (
 	DATEADD(hour,2,GETDATE()),
-	'message for lvvm253@gmail.com. HI!)',
+	'Study',
+	'What about study aboroad? Intresting?',
 	0,
 	GETDATE(),
 	1
 ),
 (
+	DATEADD(hour,2,GETDATE()),
+	'OOldStudy',
+	'What about old study? Intresting?',
+	1,
+	GETDATE(),
+	1
+),
+(
 	DATEADD(hour,5,GETDATE()),
-	'message for svyatyar@gmail.com. HI!!!!',
+	'Secret message',
+	'Hello i have secret messagge for you!!',
 	0,
 	GETDATE(),
 	2	
-)
+),
+(
+	DATEADD(hour,2,GETDATE()),
+	'Old serets Now',
+	'You know that old secret not secret?',
+	1,
+	GETDATE(),
+	2
+);
