@@ -2,9 +2,7 @@
 using LetterService.Models.API;
 using LetterService.Models.DTO;
 using LetterService.Services.Interfaces;
-
 namespace LetterService.Services;
-
 public class LetterCRUDService : ICRUDLetter
 {
     public Letter Create(LetterForCreate model, int userId)
@@ -16,12 +14,11 @@ public class LetterCRUDService : ICRUDLetter
                        ? DateTime.UtcNow
                        : model.PostTime,
             Body = model.Body,
-            Topic= model.Topic,
+            Topic = model.Topic,
             IsPosted = false,
             UserId = userId
         };
     }
-
     public void Update(Letter letter, LetterForCreate letterForCreateDto)
     {
         letter.PostTime = letterForCreateDto.PostTime < DateTime.UtcNow
@@ -32,6 +29,4 @@ public class LetterCRUDService : ICRUDLetter
         letter.CreationTime = DateTime.UtcNow;
         letter.IsPosted = false;
     }
-
-
 }
