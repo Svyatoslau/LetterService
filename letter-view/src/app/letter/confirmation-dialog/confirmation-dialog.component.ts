@@ -22,7 +22,7 @@ export class ConfirmationDialogComponent implements OnInit {
       }
     }
   }
-
+  //ffff
   onConfirmClick(): void {
     this.dialogRef.close(true);
   }
