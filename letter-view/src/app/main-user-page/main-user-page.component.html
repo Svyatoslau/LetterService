@@ -1,0 +1,25 @@
+<div class="main-page-container">
+  <div class="left-user-container">
+    <app-letter-user 
+      [loginUser]="loginUser"
+      [isAdmin]="isAdmin"
+      [users]="users"
+      (change)="changeLettersList($event)"
+      (clickMessage)="clickNewMessage()"
+    >
+    </app-letter-user>
+    <app-letter-list
+      [letters]="letters"
+      (update)="changeLetterDetail($event)"
+    >
+    </app-letter-list>
+  </div>
+  <app-letter-detail
+    [subjectLetter]="subjectLetter"
+    [email]="currentUser ? currentUser.email : ''"
+    (create)="createLetter($event)"
+    (delete)="deleteLetter($event)"
+    (update)="updateLetter($event)"
+  >
+  </app-letter-detail>
+</div>

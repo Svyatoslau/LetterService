@@ -1,0 +1,77 @@
+<div class="letter-detail">
+  <form [formGroup]="letterForm">
+    <mat-form-field class="email">
+      <mat-label>Recipients</mat-label>
+      <input
+        type="email"
+        matInput
+        formControlName="email"
+        [value]="email"
+      >
+    </mat-form-field>
+
+    <mat-form-field class="topic">
+      <mat-label>Topic</mat-label>
+      <input
+        type="text"
+        matInput
+        formControlName="topic"  
+      > 
+    </mat-form-field>
+
+    <mat-form-field class="letter-body">
+      <textarea
+        type="text"
+        matInput
+        cdkTextareaAutosize   
+        formControlName="body"
+      >
+      </textarea>
+    </mat-form-field>
+
+    <div class="button-container">
+      <app-date-time-picker
+        (update)="handleUpdateDate($event)"
+        [date]="date"
+      >
+      </app-date-time-picker>
+      <div 
+        *ngIf="!letter || letter.isPosted || letter.id == -1;
+        then sendBlock;
+        else updateBlock"
+      >
+      </div>
+      <button
+        class="delete-button"
+        mat-fab color="primary"
+        (click)="openDialog()" 
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      </div>
+  </form>
+ 
+</div>
+
+<ng-template #sendBlock>
+  <button
+        class="send-button"
+        mat-raised-button
+        color="primary"
+        (click)="sendLetter()"
+        [disabled]="letterForm.invalid"
+      >
+      Send
+      </button>
+</ng-template>
+<ng-template #updateBlock>
+  <button
+        class="send-button"
+        mat-raised-button
+        color="primary"
+        (click)="updateLetter()"
+        [disabled]="letterForm.invalid"
+      >
+      Update
+      </button>
+</ng-template>

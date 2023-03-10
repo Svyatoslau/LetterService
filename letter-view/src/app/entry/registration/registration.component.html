@@ -1,0 +1,83 @@
+<div class="registr-form">
+  <h1>Sign up to LetSer</h1>
+
+  <p *ngIf="!isFormValid" class="login-error-validation">
+    {{errorMessage}}
+  </p>
+
+
+  <form [formGroup]="register">
+
+    <mat-form-field (click)="isFormValid=true">
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        placeholder="ex@example.com"
+        formControlName="email"
+      />
+      <mat-error *ngIf="emailInput?.hasError('email') && !emailInput?.hasError('required')">
+        Please enter a valid email address
+      </mat-error>
+      <mat-error *ngIf="emailInput?.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field (click)="isFormValid=true">
+      <mat-label>Password</mat-label>
+      <input 
+        matInput 
+        placeholder="Password"
+        [type]="hide ? 'password' : 'text'" 
+        formControlName="password" 
+        required
+      >
+      <mat-icon matSuffix (click)="hide = !hide">
+        {{hide ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+      <mat-error *ngIf="passwordInput?.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="passwordInput?.hasError('minlength')">
+        Mininal lenght for password <strong>4</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field (click)="isFormValid=true">
+      <mat-label>Confirm password</mat-label>
+      <input 
+        matInput 
+        placeholder="Password"
+        [type]="hide ? 'password' : 'text'" 
+        formControlName="confirmPassword" 
+        required
+      >
+      <mat-icon matSuffix (click)="hide = !hide">
+        {{hide ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+      <mat-error *ngIf="repeatPasswordInput?.hasError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="repeatPasswordInput?.hasError('minlength')">
+        Mininal lenght for password <strong>4</strong>
+      </mat-error>
+    </mat-form-field>
+    
+    <button 
+      mat-raised-button color="primary"
+      (click)="pushForm()"
+      [disabled]="register.invalid"
+    >
+      Sign up
+    </button>
+    <mat-error *ngIf="register?.hasError('passwordNotRepeated')">
+      Passwords need to be <strong>same</strong>
+    </mat-error>
+  </form>
+
+  <p class="registr-callout">
+    Already have account to LetSer? <a routerLink="/login">Log in.</a>
+  </p>
+
+</div>

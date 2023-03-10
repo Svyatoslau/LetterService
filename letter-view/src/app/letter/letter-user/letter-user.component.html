@@ -1,0 +1,45 @@
+<div class="user-container">
+  <div class="user-head-container">
+    <h3>{{ isAdmin ? "Admin": "User"}} : {{loginUser?.email}}</h3>
+  </div>
+  
+  <div *ngIf="isAdmin; then adminBlock"></div>
+  <button
+    mat-raised-button
+    (click)="newMessage()"
+  >
+    New Message
+  </button>
+  <button
+    mat-stroked-button
+    class="close-button"
+    (click)="logout()"
+    color="warn"
+  >
+    Logout
+  </button>
+</div>
+
+<ng-template #adminBlock>
+  <mat-form-field appearance="fill">
+    <mat-label>Choese user</mat-label>
+    <mat-select [value]="loginUser?.email">
+      <mat-option  
+        *ngFor="let user of users"
+        [value]="user.email"
+        (click)="changeLetters(user)"
+      >
+        {{user.email}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+      class="admin-button"
+      mat-raised-button
+      color="primary"
+      (click)="createAdmin()"
+      
+    >
+      Create new Admin
+    </button>
+</ng-template>
