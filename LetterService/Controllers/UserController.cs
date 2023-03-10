@@ -75,9 +75,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("users")]
-
     [AuthorizeRoles(Role.Admin)]
-
     public async Task<ActionResult> GetUsers()
     {
         var users = await _context.Users.ToListAsync();
@@ -85,6 +83,4 @@ public class UserController : ControllerBase
         return Ok(usersDto);
     }
 
-
 }
-
