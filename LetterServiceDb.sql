@@ -1,12 +1,9 @@
 USE [master]
 GO
-
 CREATE DATABASE [LetterService]
 Go
-
 USE [LetterService]
 GO
-
 CREATE TABLE [Users]
 (
 	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -15,7 +12,6 @@ CREATE TABLE [Users]
 	[Role] INT NOT NULL
 )
 GO
-
 CREATE TABLE [Letters]
 (
 	Id INT PRIMARY KEY IDENTITY(1,1) NOT NULL,
@@ -27,8 +23,6 @@ CREATE TABLE [Letters]
 	[UserId] INT NOT NULL REFERENCES [Users] (Id)
 )
 Go
-
-
 INSERT INTO [Users] ([Email], [Password], [Role])
 VALUES
 (
