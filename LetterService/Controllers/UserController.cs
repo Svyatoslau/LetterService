@@ -65,10 +65,34 @@ public class UserController : ControllerBase
             return BadRequest(new { message = $"EROR user: {model.Email} Exists" });
         }
 
-        User newUser = _registerService.CreateUser(model, Models.Role.User);
+        User newUser = _registerService
+            .CreateUser(_mapper.Map<UserForCreation>(model));
 
         await _context.AddAsync(newUser);
         await _context.SaveChangesAsync();
+        var newUserDto = _mapper.Map<UserDto>(newUser);
+
+        return Ok(newUserDto);
+    }
+
+    [AuthorizeRoles(Role.Admin)]
+    [HttpPost("user")]
+    public async Task<ActionResult> CreateUser(
+        [FromBody] UserForCreation model
+    )
+    {
+        var user = await _context.Users
+            .FirstOrDefaultAsync(u => u.Email == model.Email);
+        if (user is not null)
+        {
+            return BadRequest(new { message = "User is exists" });
+        }
+
+        var newUser = _registerService.CreateUser(model);
+
+        await _context.Users.AddAsync(newUser);
+        await _context.SaveChangesAsync();
+
         var newUserDto = _mapper.Map<UserDto>(newUser);
 
         return Ok(newUserDto);
