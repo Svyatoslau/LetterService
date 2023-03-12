@@ -5,17 +5,11 @@ namespace LetterService.DAL.Entities;
 public class Letter
 {
     public int Id { get; set; }
-    [Required]
-    public DateTime PostTime { get; set; }
-    [Required]
-    public string? Topic { get; set; }
-    [Required]
-    public string? Body { get; set; }
-    [Required]
-    public bool IsPosted { get; set; }
-    [Required]
-    public DateTime CreationTime { get; set; }
-    [Required]
-    public int UserId { get; set; }
+    public required DateTime PostTime { get; set; }
+    public required string? Topic { get; set; }
+    public required string? Body { get; set; }
+    public required bool IsPosted { get; set; }
+    public required DateTime CreationTime { get; set; }
+    public required int UserId { get; set; }
     public virtual User? User { get; set; }
 }
