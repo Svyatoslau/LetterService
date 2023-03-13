@@ -404,3 +404,5 @@ letter-view/Thumbs.db
 
 
 letter-view/package-lock.json
+letter-view/.editorconfig
+letter-view/src/favicon.ico

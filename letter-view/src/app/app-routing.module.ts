@@ -10,7 +10,7 @@ import { MainUserPageComponent } from './main-user-page/main-user-page.component
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'login', component: LoginComponent},
-  { path: 'registr', component: RegistrationComponent},
+  { path: 'registration', component: RegistrationComponent},
   { 
     path: 'page',
     component: MainUserPageComponent,
