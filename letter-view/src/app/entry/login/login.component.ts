@@ -14,7 +14,7 @@ import { SuccesfullLogin } from 'src/app/models/api/SuccesfullLogin';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public signin: FormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.email,
@@ -73,12 +73,4 @@ export class LoginComponent implements OnInit {
       return false;
     }
   }
-
-
-
-
-
-  ngOnInit() {
-  }
-
 }

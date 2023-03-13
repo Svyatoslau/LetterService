@@ -19,7 +19,7 @@ import { User } from 'src/app/models/User';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })
-export class RegistrationComponent implements OnInit {
+export class RegistrationComponent {
 
   public register: FormGroup = new FormGroup({
     email: new FormControl('', [
@@ -101,9 +101,4 @@ export class RegistrationComponent implements OnInit {
       return false;
     }
   }
-  
-
-  ngOnInit() {
-  }
-
 }

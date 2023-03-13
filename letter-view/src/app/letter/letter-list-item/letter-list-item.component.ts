@@ -7,14 +7,11 @@ import { Letter } from 'src/app/models/Letter';
   selector: 'app-letter-list-item',
   templateUrl: './letter-list-item.component.html',
 })
-export class LetterListItemComponent implements OnInit {
+export class LetterListItemComponent {
   @Input()
   public letter!: Letter; 
   
   constructor() { }
-
-  ngOnInit() {
-  }
   
   public getFormatDate() : string {
     return (moment(this.letter.postTime)).format('DD-MMM-YYYY HH:mm:ss')
