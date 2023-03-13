@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from '../app-routing.module';
 
-import { UserService } from '../services/user.service';
+import { UserService } from '../services/user/user.service';
 import { AuthService } from '../services/auth.service';
 
 import { LoginComponent } from './login/login.component';

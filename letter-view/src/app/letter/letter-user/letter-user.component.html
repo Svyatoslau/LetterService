@@ -27,7 +27,7 @@
       <mat-option  
         *ngFor="let user of users"
         [value]="user.email"
-        (click)="changeLetters(user)"
+        (click)="changeUser(user)"
       >
         {{user.email}}
       </mat-option>

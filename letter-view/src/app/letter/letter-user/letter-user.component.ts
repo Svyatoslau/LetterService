@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 import { User } from 'src/app/models/User';
+import { UserChooseService } from 'src/app/services/user/user-choose.service';
+import { LetterChooseService } from 'src/app/services/letter/letter-choose.service';
+import { Role } from 'src/app/models/Role.enum';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 @Component({
@@ -12,32 +16,38 @@ import { User } from 'src/app/models/User';
   styleUrls: ['./letter-user.component.css']
 })
 export class LetterUserComponent implements OnInit {
-  @Input()
   public loginUser?: User;
-  @Input()
   public isAdmin: boolean = false;
 
-  @Output()
-  public change: EventEmitter<any> = new EventEmitter();
-  @Output()
-  public clickMessage: EventEmitter<any> = new EventEmitter();
-  @Input()
   public users: User[] = [];
 
   constructor(
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private userChooseService: UserChooseService,
+    private letterChooseService: LetterChooseService,
+    private userService: UserService
   ) {}
 
-  ngOnInit() { } 
+  ngOnInit() {
+    this.loginUser = this.authService.getLoginUser()
+    this.isAdmin = this.loginUser.role === Role.admin;
+    if (this.isAdmin){
+      this.userService.GetUsers()
+        .subscribe(
+          (users: User[]) =>{
+            this.users  = users;
+          }
+        );
+    }
+  } 
 
   public newMessage() {
-    console.log("new message");
-    this.clickMessage.emit();
+    this.letterChooseService.nextEmptyLetter();
   }
 
-  public changeLetters(user: User) {
-    this.change.emit(user);
+  public changeUser(user: User) {
+    this.userChooseService.nextUser(user)
   }
 
   public logout(){

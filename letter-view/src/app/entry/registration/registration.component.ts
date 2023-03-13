@@ -8,7 +8,7 @@ import {
   ValidatorFn 
 } from '@angular/forms';
 
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 import { ErrorMessage } from 'src/app/models/api/ErrorMessage';
 import { UserLogin } from 'src/app/models/api/output/UserLogin';

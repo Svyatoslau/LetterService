@@ -6,11 +6,12 @@ import {
   of,
   tap
 } from 'rxjs';
+import { LetterForCreation } from 'src/app/models/api/LetterForCreation';
+import { Letter } from 'src/app/models/Letter';
 
 import { environment } from 'src/environments/environment.development';
 
-import { LetterForCreation } from '../models/api/LetterForCreation';
-import { Letter } from '../models/Letter';
+
 
 @Injectable({
   providedIn: 'root'

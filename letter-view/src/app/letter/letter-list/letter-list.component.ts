@@ -6,6 +6,9 @@ import {
   Output 
 } from '@angular/core';
 
+import { LetterChooseService } from 'src/app/services/letter/letter-choose.service';
+import { LettersChooseService } from 'src/app/services/letter/letters-choose.service';
+
 import { Letter } from 'src/app/models/Letter';
 
 @Component({
@@ -14,15 +17,21 @@ import { Letter } from 'src/app/models/Letter';
   styleUrls: ['./letter-list.component.css']
 })
 export class LetterListComponent implements OnInit {
-  @Input()
   public letters: Letter[] = []; 
 
-  @Output()
-  public update: EventEmitter<any> = new EventEmitter();
+  constructor(
+    private letterFilterService: LetterChooseService,
+    private lettersChooseService: LettersChooseService
+  ) { }
 
-  constructor() { }
-
-  ngOnInit() { }
+  ngOnInit() {
+    this.lettersChooseService.letters$
+      .subscribe(
+        (letters) => {
+          this.letters = letters;
+        }
+      )
+  }
 
   public getPostedLetters(): Letter[] | undefined{
     return this.letters
@@ -36,6 +45,6 @@ export class LetterListComponent implements OnInit {
   }
 
   public handleClick(letter: Letter){
-    this.update.emit(letter);
+   this.letterFilterService.nextLetter(letter);
   }
 }

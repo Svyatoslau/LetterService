@@ -19,6 +19,7 @@ import { LetterListComponent } from './letter-list/letter-list.component';
 import { LetterListItemComponent } from './letter-list-item/letter-list-item.component';
 import { LetterUserComponent } from './letter-user/letter-user.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { LetterChooseService } from '../services/letter/letter-choose.service';
 
 @NgModule({
   imports: [
@@ -48,7 +49,8 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     LetterUserComponent
   ],
   providers: [
-    AuthService
+    AuthService,
+    LetterChooseService
   ],
   entryComponents: [
     ConfirmationDialogComponent

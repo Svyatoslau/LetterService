@@ -3,11 +3,17 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { distinctUntilChanged, Subject } from 'rxjs';
 
+import { LetterChooseService } from 'src/app/services/letter/letter-choose.service';
+
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 import { LetterForCreation } from 'src/app/models/api/LetterForCreation';
 import { LetterForUpdate } from 'src/app/models/api/LetterForUpdate';
 import { Letter } from 'src/app/models/Letter';
+import { LetterCrudService } from 'src/app/services/letter/letter-crud.service';
+import { UserChooseService } from 'src/app/services/user/user-choose.service';
+import { AuthService } from 'src/app/services/auth.service';
+
 
 @Component({
   selector: 'app-letter-detail',
@@ -29,21 +35,15 @@ export class LetterDetailComponent implements OnInit {
   });
 
   public date: Date = new Date();
-  
-  @Input()
-  public subjectLetter!: Subject<Letter>
-  @Input()
-  public email: string = ''
-
-  @Output()
-  public create: EventEmitter<any> = new EventEmitter();
-  @Output()
-  public delete: EventEmitter<any> = new EventEmitter();
-  @Output()
-  public update: EventEmitter<any> = new EventEmitter();
 
   public letter?: Letter;
-  constructor(private dialog: MatDialog) { }
+  constructor(
+    private dialog: MatDialog,
+    private letterChooseService: LetterChooseService,
+    private letterCrudService: LetterCrudService,
+    private userChooseService: UserChooseService,
+    private authService: AuthService
+  ) { }
 
   public get emailInput() {
     return this.letterForm.get('email');
@@ -62,13 +62,13 @@ export class LetterDetailComponent implements OnInit {
       topic: this.topicInput?.value,
       body: this.bodyInput?.value
     }
-    this.create.emit(createdFormLetter);
+    this.letterCrudService.createLetter(createdFormLetter);
   }
 
   public deleteLetter(){
     let letterId: number = this.letter ? this.letter.id : -1
-    if (letterId >= 0) {
-      this.delete.emit(this.letter);
+    if (letterId >= 0 && this.letter) {
+      this.letterCrudService.deleteLetter(this.letter);
     }
     else {
       this.bodyInput?.setValue('');
@@ -95,7 +95,7 @@ export class LetterDetailComponent implements OnInit {
     })
   }
 
-  public updateLetter(){
+  public updateLetter() {
     let model : LetterForUpdate = {
       model: {
         postTime: this.date,
@@ -104,7 +104,7 @@ export class LetterDetailComponent implements OnInit {
       },
       id: this.letter ? this.letter.id : -1
     }
-    this.update.emit(model);
+    this.letterCrudService.updateLetter(model);
   }
 
   public handleUpdateDate(date: Date){
@@ -112,17 +112,27 @@ export class LetterDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.emailInput?.setValue(this.email)
-    this.subjectLetter.pipe(
-      distinctUntilChanged()
-    ).subscribe(
-      (letter: Letter) =>{
-        this.emailInput?.setValue(this.email)
-        this.topicInput?.setValue(letter.topic)
-        this.bodyInput?.setValue(letter.body)
-        this.letter = letter;
-        this.date = this.letter.postTime
-      }
+    console.log('da');
+    this.emailInput?.setValue(this.authService.getLoginUser().email)
+    this.userChooseService.user$
+      .subscribe(
+        (user) => {
+          this.emailInput?.setValue(user.email)
+        }
+      );
+    
+    this.letterChooseService.letter$
+      .pipe(
+        distinctUntilChanged()
+      )
+      .subscribe(
+        (letter: Letter) => {
+
+          this.topicInput?.setValue(letter.topic)
+          this.bodyInput?.setValue(letter.body)
+          this.letter = letter;
+          this.date = this.letter.postTime
+        }
     );
 
   }
