@@ -54,8 +54,8 @@ public class UserController : ControllerBase
         });
     }
 
-    [HttpPost("user/register")]
-    public async Task<ActionResult> RegisterAsync(
+    [HttpPost("user/registration")]
+    public async Task<ActionResult> RegisterUserAsync(
         [FromBody] UserLoginModel model
     )
     {

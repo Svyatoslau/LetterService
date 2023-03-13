@@ -15,7 +15,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var config = builder.Configuration;
 string? connection = config.GetConnectionString("DefaultConnection");
-string[] origins = config["AllowedOrigins"].Split(";");
+string origin = config["AllowedOrigin"];
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -59,7 +59,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors(builder => builder
-    .WithOrigins(origins)
+    .WithOrigins(origin)
     .AllowAnyHeader()
     .AllowAnyMethod()
 );

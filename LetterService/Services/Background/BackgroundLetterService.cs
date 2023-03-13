@@ -39,35 +39,35 @@ public class BackgroundLetterService : IBackgroundLetter
             _logger.LogInformation($"Current UTC Time on server: {DateTime.UtcNow}");
 
             await context.Letters
-            .Where(l => !l.IsPosted && l.PostTime < DateTime.UtcNow)
-            .Include(l => l.User)
-            .ForEachAsync(letter =>
-            {
-                try
+                .Where(l => !l.IsPosted && l.PostTime < DateTime.UtcNow)
+                .Include(l => l.User)
+                .ForEachAsync(letter =>
                 {
-                    var email = new MimeMessage();
-                    email.From.Add(MailboxAddress.Parse(_hostUser));
-                    email.To.Add(MailboxAddress.Parse(letter.User?.Email));
-                    email.Subject = letter.Topic;
-                    email.Body = new TextPart(TextFormat.Html)
+                    try
                     {
-                        Text = $"<h3>{letter.Body}</h3>" +
-                               $"<h5>Post time: {letter.PostTime + (DateTime.Now - DateTime.UtcNow)}<h5>"
-                    };
+                        var email = new MimeMessage();
+                        email.From.Add(MailboxAddress.Parse(_hostUser));
+                        email.To.Add(MailboxAddress.Parse(letter.User?.Email));
+                        email.Subject = letter.Topic;
+                        email.Body = new TextPart(TextFormat.Html)
+                        {
+                            Text = $"<h3>{letter.Body}</h3>" +
+                                   $"<h5>Post time: {letter.PostTime + (DateTime.Now - DateTime.UtcNow)}<h5>"
+                        };
 
-                    using var smtp = new SmtpClient();
-                    smtp.Connect(_host, int.Parse(_port), SecureSocketOptions.SslOnConnect);
-                    smtp.Authenticate(_hostUser, _hostPassword);
-                    smtp.Send(email);
-                    smtp.Disconnect(true);
-                    letter.IsPosted = true;
-                }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex.Message);
-                    letter.IsPosted = false;
-                }
-            });
+                        using var smtp = new SmtpClient();
+                        smtp.Connect(_host, int.Parse(_port), SecureSocketOptions.SslOnConnect);
+                        smtp.Authenticate(_hostUser, _hostPassword);
+                        smtp.Send(email);
+                        smtp.Disconnect(true);
+                        letter.IsPosted = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex.Message);
+                        letter.IsPosted = false;
+                    }
+                });
 
             await context.SaveChangesAsync();
         }
