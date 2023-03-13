@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 import { Letter } from '../../models/Letter';
 

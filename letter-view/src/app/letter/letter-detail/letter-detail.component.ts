@@ -4,16 +4,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { distinctUntilChanged, Subject } from 'rxjs';
 
 import { LetterChooseService } from 'src/app/services/letter/letter-choose.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { LetterCrudService } from 'src/app/services/letter/letter-crud.service';
+import { UserChooseService } from 'src/app/services/user/user-choose.service';
 
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 import { LetterForCreation } from 'src/app/models/api/LetterForCreation';
 import { LetterForUpdate } from 'src/app/models/api/LetterForUpdate';
 import { Letter } from 'src/app/models/Letter';
-import { LetterCrudService } from 'src/app/services/letter/letter-crud.service';
-import { UserChooseService } from 'src/app/services/user/user-choose.service';
-import { AuthService } from 'src/app/services/auth.service';
-
 
 @Component({
   selector: 'app-letter-detail',

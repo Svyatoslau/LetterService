@@ -13,13 +13,13 @@ import { DateTimePickerModule } from '../date-time-picker/date-time-picker.modul
 import { AppRoutingModule } from '../app-routing.module';
 
 import { AuthService } from '../services/auth.service';
+import { LetterChooseService } from '../services/letter/letter-choose.service';
 
 import { LetterDetailComponent } from './letter-detail/letter-detail.component';
 import { LetterListComponent } from './letter-list/letter-list.component';
 import { LetterListItemComponent } from './letter-list-item/letter-list-item.component';
 import { LetterUserComponent } from './letter-user/letter-user.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
-import { LetterChooseService } from '../services/letter/letter-choose.service';
 
 @NgModule({
   imports: [

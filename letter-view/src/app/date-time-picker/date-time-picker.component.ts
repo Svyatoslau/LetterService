@@ -1,7 +1,6 @@
 import {
   Component,
   EventEmitter,
-  Input,
   OnInit,
   Output 
 } from '@angular/core';
@@ -39,13 +38,14 @@ export class DateTimePickerComponent implements OnInit {
         (letter) => {
           this.dateInput?.setValue(letter.postTime);
         }
-      )
+      );
+    
     this.dateInput?.valueChanges
       .subscribe(
         (value) => {
           this.dateUpdated();
         }
-      )
+      );
   }
 
   dateUpdated(){
