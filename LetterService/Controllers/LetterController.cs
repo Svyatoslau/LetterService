@@ -110,21 +110,13 @@ public class LetterController : ControllerBase
     {
         var user = await _context.Users
             .FirstOrDefaultAsync(user => user.Id == userId);
-        if (user is null)
-        {
-            return false;
-        }
-
-        if (HttpContext.User.IsInRole(Role.Admin.ToString()))
-        {
-            return true;
-        }
+        
         string email = HttpContext.User.FindFirst(ClaimsIdentity.DefaultNameClaimType)!.Value;
 
-        if (email != user.Email)
-        {
-            return false;
-        }
-        return true;
+        bool isUserExists = user is not null;
+        bool isSameUserEmail = isUserExists ? email == user?.Email : false;
+        bool isAdmin = HttpContext.User.IsInRole(Role.Admin.ToString());
+
+        return isUserExists && (isSameUserEmail || isAdmin);
     }
 }
