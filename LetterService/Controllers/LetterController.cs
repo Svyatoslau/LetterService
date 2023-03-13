@@ -30,7 +30,7 @@ public class LetterController : ControllerBase
         [FromRoute] int userId
     )
     {
-        bool IsValidUser = await VerifyUserAsync(userId);
+        bool IsValidUser = await DoesTheUserHaveAccessToResourse(userId);
         if (!IsValidUser)
         {
             return BadRequest(new { message = "Access denied" });
@@ -49,7 +49,7 @@ public class LetterController : ControllerBase
         [FromBody] LetterForCreate model
     )
     {
-        bool IsValidUser = await VerifyUserAsync(userId);
+        bool IsValidUser = await DoesTheUserHaveAccessToResourse(userId);
         if (!IsValidUser)
         {
             return BadRequest(new { message = "Access denied" });
@@ -68,7 +68,7 @@ public class LetterController : ControllerBase
         [FromRoute] int userId
     )
     {
-        bool IsValidUser = await VerifyUserAsync(userId);
+        bool IsValidUser = await DoesTheUserHaveAccessToResourse(userId);
         if (!IsValidUser)
         {
             return BadRequest(new { message = "Access denied" });
@@ -91,7 +91,7 @@ public class LetterController : ControllerBase
         [FromRoute] int letterId
     )
     {
-        bool IsValidUser = await VerifyUserAsync(userId);
+        bool IsValidUser = await DoesTheUserHaveAccessToResourse(userId);
         if (!IsValidUser)
         {
             return BadRequest(new { message = "Access denied" });
@@ -106,7 +106,7 @@ public class LetterController : ControllerBase
         var letterDto = _mapper.Map<LetterDto>(letter);
         return Ok(letterDto);
     }
-    private async Task<bool> VerifyUserAsync(int userId)
+    private async Task<bool> DoesTheUserHaveAccessToResourse(int userId)
     {
         var user = await _context.Users
             .FirstOrDefaultAsync(user => user.Id == userId);
