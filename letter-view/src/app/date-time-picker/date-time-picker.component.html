@@ -1,12 +1,16 @@
-<mat-form-field>
-  <input
-    matInput
-    [(ngModel)]="date"
-    [min]="minDate"
-    [ngxMatDatetimePicker]="picker"
-    placeholder="Choose a date"
-    (dateChange)="dateUpdated()">
-  <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-  <ngx-mat-datetime-picker #picker>
-</ngx-mat-datetime-picker>
-</mat-form-field>
+
+<form [formGroup]="datePicker">
+  <mat-form-field>
+    <input
+      matInput
+      [min]="minDate"
+      [ngxMatDatetimePicker]="picker"
+      placeholder="Choose a date"
+      (dateChange)="dateUpdated()"
+      formControlName="date"
+    >
+    <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+    <ngx-mat-datetime-picker #picker>
+  </ngx-mat-datetime-picker>
+  </mat-form-field>
+</form>

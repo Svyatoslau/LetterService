@@ -112,7 +112,6 @@ export class LetterDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('da');
     this.emailInput?.setValue(this.authService.getLoginUser().email)
     this.userChooseService.user$
       .subscribe(

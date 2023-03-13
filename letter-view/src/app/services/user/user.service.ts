@@ -37,7 +37,7 @@ export class UserService {
 
   public registrUser(form: UserLogin): Observable<User | ErrorMessage> {
     return this.http.post<User | ErrorMessage>(
-      `${this.apiUrl}/user/register`,
+      `${this.apiUrl}/user/registration`,
       form,
       this.httpOptions
     )
