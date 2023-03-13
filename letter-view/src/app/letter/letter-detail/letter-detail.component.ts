@@ -1,11 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { distinctUntilChanged, Observable, of, Subject } from 'rxjs';
+import { distinctUntilChanged, Subject } from 'rxjs';
+
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+
 import { LetterForCreation } from 'src/app/models/api/LetterForCreation';
 import { LetterForUpdate } from 'src/app/models/api/LetterForUpdate';
 import { Letter } from 'src/app/models/Letter';
-import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-letter-detail',

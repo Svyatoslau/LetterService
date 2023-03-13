@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
+
+import { AuthService } from '../services/auth.service';
+import { LetterService } from '../services/letter.service';
+import { UserService } from '../services/user.service';
+
 import { LetterForCreation } from '../models/api/LetterForCreation';
 import { LetterForUpdate } from '../models/api/LetterForUpdate';
 import { Letter } from '../models/Letter';
 import { Role } from '../models/Role.enum';
 import { User } from '../models/User';
-import { AuthService } from '../services/auth.service';
-import { LetterService } from '../services/letter.service';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-main-user-page',

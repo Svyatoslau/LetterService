@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output 
+} from '@angular/core';
+
 import { Letter } from 'src/app/models/Letter';
 
 @Component({
@@ -18,10 +25,14 @@ export class LetterListComponent implements OnInit {
   ngOnInit() { }
 
   public getPostedLetters(): Letter[] | undefined{
-    return this.letters?.filter(letter => letter.isPosted).sort((a, b) => b.postTime.getTime() - a.postTime.getTime());
+    return this.letters
+      ?.filter(letter => letter.isPosted)
+      .sort((a, b) => b.postTime.getTime() - a.postTime.getTime());
   }
   public getUnpostedLetters(): Letter[] | undefined{
-    return this.letters?.filter(letter => !letter.isPosted).sort((a, b) => b.postTime.getTime() - a.postTime.getTime());
+    return this.letters
+      ?.filter(letter => !letter.isPosted)
+      .sort((a, b) => b.postTime.getTime() - a.postTime.getTime());
   }
 
   public handleClick(letter: Letter){

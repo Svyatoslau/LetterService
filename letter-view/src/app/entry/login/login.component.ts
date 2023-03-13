@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
+
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+
 import { ErrorLogin } from 'src/app/models/api/ErrorLogin';
 import { UserLogin } from 'src/app/models/api/output/UserLogin';
 import { SuccesfullLogin } from 'src/app/models/api/SuccesfullLogin';
-import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',

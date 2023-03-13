@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
+import { 
+  FormGroup,
+  FormControl,
+  Validators,
+  ValidationErrors,
+  ValidatorFn 
+} from '@angular/forms';
+
+import { UserService } from 'src/app/services/user.service';
+
 import { ErrorMessage } from 'src/app/models/api/ErrorMessage';
 import { UserLogin } from 'src/app/models/api/output/UserLogin';
-import { SuccesfullLogin } from 'src/app/models/api/SuccesfullLogin';
 import { User } from 'src/app/models/User';
-import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-registration',

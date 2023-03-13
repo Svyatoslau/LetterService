@@ -1,8 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import * as moment from 'moment';
-import { catchError, Observable, of, tap } from 'rxjs';
+import {
+  catchError,
+  Observable,
+  of,
+  tap
+} from 'rxjs';
+
 import { environment } from 'src/environments/environment.development';
+
 import { LetterForCreation } from '../models/api/LetterForCreation';
 import { Letter } from '../models/Letter';
 
