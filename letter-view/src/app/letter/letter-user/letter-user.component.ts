@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 
 import { AuthService } from 'src/app/services/auth.service';
-import { UserService } from 'src/app/services/user/user.service';
 import { UserChooseService } from 'src/app/services/user/user-choose.service';
 import { LetterChooseService } from 'src/app/services/letter/letter-choose.service';
 
@@ -22,7 +21,7 @@ import { UsersChooseService } from 'src/app/services/user/users-choose.service';
 export class LetterUserComponent implements OnInit {
   public loginUser?: User;
   public isAdmin: boolean = false;
-
+  
   public users: User[] = [];
 
   constructor(
@@ -49,7 +48,7 @@ export class LetterUserComponent implements OnInit {
   } 
 
   public newMessage() {
-    this.letterChooseService.nextEmptyLetter();
+    this.letterChooseService.nextEmptyLetter('');
   }
 
   public changeUser(user: User) {

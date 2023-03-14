@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit{
     this.userService.loginUser(form)
       .subscribe(
         (value: SuccesfullLogin | ErrorLogin) => {
-          //console.log(value)
+          console.log(value)
           if (this.instanceOfSuccesfullLogin(value)){
             this.authService.authenticate(value);
             this.router.navigate(['/page'])

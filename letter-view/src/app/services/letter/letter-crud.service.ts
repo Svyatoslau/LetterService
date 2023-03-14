@@ -54,7 +54,7 @@ export class LetterCrudService {
     this.letterService.deleteLetter(this.user.id, letterForDelete.id)
       .subscribe(
         letter => {
-          this.letterChooseService.nextEmptyLetter();
+          this.letterChooseService.nextEmptyLetter(this.user.email);
           this.lettersChooseService
             .nextLetters(this.letters.filter(l => l.id !== letter.id));
         }

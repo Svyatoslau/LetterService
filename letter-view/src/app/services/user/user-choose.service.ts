@@ -27,7 +27,7 @@ export class UserChooseService {
     this.letterService.getLetters(user.id)
       .subscribe(
         (letters: Letter[]) => { 
-          this.letterChooseService.nextEmptyLetter();
+          this.letterChooseService.nextEmptyLetter(user.email);
           this.lettersChooseService.nextLetters(letters);
         }
       )

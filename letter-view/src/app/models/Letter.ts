@@ -3,5 +3,6 @@ export interface Letter {
     topic: string,
     body: string,
     postTime: Date,
-    isPosted: boolean
+    isPosted: boolean,
+    emails: string
 }

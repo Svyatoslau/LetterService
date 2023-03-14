@@ -22,7 +22,6 @@ import { Letter } from 'src/app/models/Letter';
 export class LetterDetailComponent implements OnInit {
   public letterForm: FormGroup = new FormGroup({
     email: new FormControl('', [
-      Validators.email,
       Validators.required
     ]),
     topic: new FormControl('', []),
@@ -57,7 +56,8 @@ export class LetterDetailComponent implements OnInit {
     let createdFormLetter: LetterForCreation = {
       postTime: this.date,
       topic: this.topicInput?.value,
-      body: this.bodyInput?.value
+      body: this.bodyInput?.value,
+      emails: this.emailInput?.value
     }
     this.letterCrudService.createLetter(createdFormLetter);
   }
@@ -96,7 +96,8 @@ export class LetterDetailComponent implements OnInit {
       model: {
         postTime: this.date,
         topic: this.topicInput?.value,
-        body: this.bodyInput?.value
+        body: this.bodyInput?.value,
+        emails: this.emailInput?.value
       },
       id: this.letter ? this.letter.id : -1
     }
@@ -123,7 +124,7 @@ export class LetterDetailComponent implements OnInit {
       .subscribe(
         (letter: Letter) => {
           this.bodyInput?.reset()
-          
+          this.emailInput?.setValue(letter.emails)
           this.topicInput?.setValue(letter.topic)
           this.bodyInput?.setValue(letter.body)
           this.letter = letter;
