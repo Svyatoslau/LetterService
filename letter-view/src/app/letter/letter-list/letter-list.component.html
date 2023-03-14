@@ -1,4 +1,12 @@
 <div class="container-list">
+  <mat-form-field [formGroup]="filterForm">
+    <mat-label>Filter</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="filter"
+    >
+  </mat-form-field>
   <h3>Unposted</h3>
   <mat-selection-list [multiple]="false">
     <app-letter-list-item 
