@@ -45,6 +45,7 @@ export class LetterCrudService {
         (letter: Letter) => {
           console.log(letter)
           this.letters.push(letter);
+          this.lettersChooseService.nextLetters(this.letters);
           this.letterChooseService.nextLetter(letter);
         }
       )

@@ -8,14 +8,7 @@ import { UserService } from './user.service';
 })
 export class UsersChooseService {
   public users$: Subject<User[]> = new Subject<User[]>;
-  constructor(private userService: UserService) {
-    this.userService.GetUsers()
-      .subscribe(
-        (users: User[]) =>{
-          this.users$.next(users);
-        }
-      );
-  }
+  constructor() { }
   
   public nextUsers(users: User[]){
     this.users$.next(users);

@@ -31,10 +31,13 @@ export class LetterUserComponent implements OnInit {
     private letterChooseService: LetterChooseService,
     private dialog: MatDialog,
     private usersChooseService: UsersChooseService
-  ) {}
+  ) {
+
+  }
 
   ngOnInit() {
     this.loginUser = this.authService.getLoginUser()
+    this.user = this.loginUser
     this.isAdmin = this.loginUser.role === Role.admin;
     if (this.isAdmin){
       this.usersChooseService.users$

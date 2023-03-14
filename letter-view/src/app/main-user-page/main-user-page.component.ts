@@ -4,6 +4,9 @@ import { AuthService } from '../services/auth.service';
 
 import { User } from '../models/User';
 import { UserChooseService } from '../services/user/user-choose.service';
+import { UsersChooseService } from '../services/user/users-choose.service';
+import { UserService } from '../services/user/user.service';
+import { Role } from '../models/Role.enum';
 
 @Component({
   selector: 'app-main-user-page',
@@ -15,11 +18,21 @@ export class MainUserPageComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private userChooseService: UserChooseService
+    private userChooseService: UserChooseService,
+    private usersChooseService: UsersChooseService,
+    private userSerivce: UserService
   ) { }
 
   ngOnInit() {
     this.loginUser = this.authService.getLoginUser();
     this.userChooseService.nextUser(this.loginUser);
+    if(this.loginUser.role === Role.admin) {
+      this.userSerivce.GetUsers()
+        .subscribe(
+          (users) => {
+            this.usersChooseService.nextUsers(users);
+          }
+        )
+    }
   }
 }
