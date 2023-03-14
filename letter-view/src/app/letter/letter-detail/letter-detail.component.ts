@@ -74,7 +74,38 @@ export class LetterDetailComponent implements OnInit {
     }
   }
 
-  public openDialog(){
+  public openSendDialog(event: string) {
+    let currentDate = new Date();
+
+    if (this.date.getTime() < currentDate.getTime()) {
+      this.date = currentDate;
+
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+        data:{
+          message: 'Choosed date in past. Are you want send letter now?',
+          buttonText: {
+            ok: 'Send',
+            cancel: 'Cancel'
+          }
+        }
+      });
+  
+      dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+        if (confirmed) {
+          if (event = 'send') {
+            this.sendLetter()
+          }
+          else if (event = 'update') {
+            this.updateLetter()
+          }
+        }
+      })
+    }
+
+    
+  }
+
+  public openDeleteDialog(){
     const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
       data:{
         message: 'Are you sure want to delete?',
@@ -89,6 +120,10 @@ export class LetterDetailComponent implements OnInit {
       if (confirmed) {
         this.deleteLetter()
       }
+      if (this.letter){
+        this.letterChooseService.nextLetter(this.letter);
+      }
+      
     })
   }
 

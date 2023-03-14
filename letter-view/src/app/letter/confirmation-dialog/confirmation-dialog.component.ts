@@ -9,6 +9,7 @@ export class ConfirmationDialogComponent {
   message: string = "Are you sure?"
   confirmButtonText = "Yes"
   cancelButtonText = "Cancel"
+  color: string = 'warn'
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<ConfirmationDialogComponent>) {
@@ -19,6 +20,10 @@ export class ConfirmationDialogComponent {
       if (data.buttonText) {
         this.confirmButtonText = data.buttonText.ok || this.confirmButtonText;
         this.cancelButtonText = data.buttonText.cancel || this.cancelButtonText;
+      }
+
+      if (data.color) {
+        this.color = data.color;
       }
     }
   }
