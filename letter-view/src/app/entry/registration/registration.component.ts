@@ -74,6 +74,9 @@ export class RegistrationComponent {
           }
           else {
             this.register.reset();
+            this.emailInput?.setErrors(null);
+            this.passwordInput?.setErrors(null);
+            this.repeatPasswordInput?.setErrors(null);
             this.isFormValid = false,
             this.errorMessage = value.message
           }

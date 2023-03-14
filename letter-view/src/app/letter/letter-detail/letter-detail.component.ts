@@ -121,9 +121,9 @@ export class LetterDetailComponent implements OnInit {
         this.deleteLetter()
       }
       if (this.letter){
-        this.letterChooseService.nextLetter(this.letter);
+      this.letterChooseService.nextLetter(this.letter);
       }
-      
+      this.bodyInput?.setErrors(null);
     })
   }
 

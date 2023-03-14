@@ -57,7 +57,9 @@ export class LoginComponent {
             this.router.navigate(['/page'])
           }
           else {
-            this.signin.reset();
+            this.signin?.reset();
+            this.emailInput?.setErrors(null);
+            this.passwordInput?.setErrors(null);
             this.isFormValid = false,
             this.errorMessage = value.message
           }
