@@ -74,7 +74,8 @@ export class LetterDetailComponent implements OnInit {
           buttonText: {
             ok: 'Send',
             cancel: 'Cancel'
-          }
+          },
+          color: 'primary'
         }
       });
   
@@ -122,6 +123,7 @@ export class LetterDetailComponent implements OnInit {
       .subscribe(
         (letter: Letter) => {
           this.bodyInput?.reset()
+          
           this.topicInput?.setValue(letter.topic)
           this.bodyInput?.setValue(letter.body)
           this.letter = letter;
