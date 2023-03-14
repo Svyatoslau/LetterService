@@ -2,21 +2,20 @@
   <div class="user-head-container">
     <h3>{{ isAdmin ? "Admin": "User"}} : {{loginUser?.email}}</h3>
   </div>
-  
+  <button
+    mat-stroked-button
+    class="close-button"
+    (click)="openDialog()"
+    color="warn"
+  >
+    Logout
+  </button>
   <div *ngIf="isAdmin; then adminBlock"></div>
   <button
     mat-raised-button
     (click)="newMessage()"
   >
     New Message
-  </button>
-  <button
-    mat-stroked-button
-    class="close-button"
-    (click)="logout()"
-    color="warn"
-  >
-    Logout
   </button>
 </div>
 
@@ -33,12 +32,11 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <button
+    <button
       class="admin-button"
       mat-raised-button
       color="primary"
       (click)="createAdmin()"
-      
     >
       Create new Admin
     </button>

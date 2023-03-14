@@ -1,14 +1,16 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 
 import { AuthService } from 'src/app/services/auth.service';
-
-import { User } from 'src/app/models/User';
+import { UserService } from 'src/app/services/user/user.service';
 import { UserChooseService } from 'src/app/services/user/user-choose.service';
 import { LetterChooseService } from 'src/app/services/letter/letter-choose.service';
-import { Role } from 'src/app/models/Role.enum';
-import { UserService } from 'src/app/services/user/user.service';
 
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+
+import { User } from 'src/app/models/User';
+import { Role } from 'src/app/models/Role.enum';
 
 @Component({
   selector: 'app-letter-user',
@@ -26,7 +28,8 @@ export class LetterUserComponent implements OnInit {
     private authService: AuthService,
     private userChooseService: UserChooseService,
     private letterChooseService: LetterChooseService,
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -55,7 +58,27 @@ export class LetterUserComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  public openDialog(){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        message: 'Are you sure want to logout?',
+        buttonText: {
+          ok: 'Logout',
+          cancel: 'No'
+        }
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.logout()
+      }
+    })
+  }
+
   public createAdmin() {
 
   }
+
+
 }
