@@ -25,9 +25,7 @@ export class LetterDetailComponent implements OnInit {
       Validators.email,
       Validators.required
     ]),
-    topic: new FormControl('', [
-      Validators.required
-    ]),
+    topic: new FormControl('', []),
     body: new FormControl('', [
       Validators.required
     ])
@@ -125,7 +123,7 @@ export class LetterDetailComponent implements OnInit {
       )
       .subscribe(
         (letter: Letter) => {
-
+          this.bodyInput?.reset()
           this.topicInput?.setValue(letter.topic)
           this.bodyInput?.setValue(letter.body)
           this.letter = letter;
