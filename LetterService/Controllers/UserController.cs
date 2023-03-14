@@ -62,7 +62,7 @@ public class UserController : ControllerBase
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == model.Email);
         if (user is not null)
         {
-            return BadRequest(new { message = $"EROR user: {model.Email} Exists" });
+            return BadRequest(new { message = $"User is exists" });
         }
 
         User newUser = _registerService
