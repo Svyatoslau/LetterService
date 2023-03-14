@@ -44,7 +44,7 @@
       mat-raised-button
       color="primary"
       (click)="pushForm()"
-      [disabled]="signin.invalid"
+      [disabled]="signin.invalid || refresh"
     >
       Sign In
     </button>

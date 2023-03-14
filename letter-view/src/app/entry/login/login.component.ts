@@ -14,7 +14,7 @@ import { SuccesfullLogin } from 'src/app/models/api/SuccesfullLogin';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   public signin: FormGroup = new FormGroup({
     email: new FormControl('', [
       Validators.email,
@@ -28,11 +28,22 @@ export class LoginComponent {
   public hide: boolean = true;
   public isFormValid: boolean = true;
   public errorMessage: string = '';
+  public refresh: boolean = false;
 
   constructor(
     private userService: UserService,
     private router: Router,
-    private authService: AuthService) { }
+    private authService: AuthService
+  ) { }
+
+  ngOnInit(): void {
+    this.signin.valueChanges
+      .subscribe(
+        (value) => {
+          this.refresh = false;
+        }
+      )
+  }
 
   public get emailInput() {
     return this.signin.get('email');
@@ -62,6 +73,7 @@ export class LoginComponent {
             this.passwordInput?.setErrors(null);
             this.isFormValid = false,
             this.errorMessage = value.message
+            this.refresh = true
           }
         }
       )
