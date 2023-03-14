@@ -47,6 +47,7 @@ public class BackgroundLetterService : IBackgroundLetter
                     try
                     {
                         var stringEmails = letter.Emails.Split(';').ToList();
+                        stringEmails.ForEach(stringEmail => _logger.LogInformation(stringEmail));
 
                         var email = new MimeMessage();
                         email.From.Add(MailboxAddress.Parse(_hostUser));
@@ -54,7 +55,8 @@ public class BackgroundLetterService : IBackgroundLetter
                         if (!stringEmails.IsNullOrEmpty())
                         {
                             var emails = stringEmails
-                                .Select(email => MailboxAddress.Parse(_hostUser));
+                                .Select(email => MailboxAddress.Parse(email));
+
 
                             email.To.AddRange(emails);
                         }
@@ -62,7 +64,8 @@ public class BackgroundLetterService : IBackgroundLetter
                         {
                             email.To.Add(MailboxAddress.Parse(letter.User?.Email));
                         }
-                        
+
+                        _logger.LogInformation(email.ToString());
 
                         email.Subject = letter.Topic;
                         email.Body = new TextPart(TextFormat.Html)
