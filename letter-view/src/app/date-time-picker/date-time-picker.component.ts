@@ -36,6 +36,7 @@ export class DateTimePickerComponent implements OnInit {
     this.letterChoose.letter$
       .subscribe(
         (letter) => {
+          this.dateInput?.reset()
           this.dateInput?.setValue(letter.postTime);
         }
       );
