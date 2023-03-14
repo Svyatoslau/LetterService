@@ -22,9 +22,6 @@ form{
     display: flex;
     flex-direction: row;
 }
-button.delete-button{
-    margin-left: auto;
-}
 button.send-button{
     margin-left: 5px;
     height: 56px;

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { LetterChooseService } from 'src/app/services/letter/letter-choose.service';
 import { LettersChooseService } from 'src/app/services/letter/letters-choose.service';
 
 import { Letter } from 'src/app/models/Letter';
@@ -14,7 +13,6 @@ export class LetterListComponent implements OnInit {
   public letters: Letter[] = []; 
 
   constructor(
-    private letterFilterService: LetterChooseService,
     private lettersChooseService: LettersChooseService
   ) { }
 
@@ -36,9 +34,5 @@ export class LetterListComponent implements OnInit {
     return this.letters
       ?.filter(letter => !letter.isPosted)
       .sort((a, b) => b.postTime.getTime() - a.postTime.getTime());
-  }
-
-  public handleClick(letter: Letter){
-   this.letterFilterService.nextLetter(letter);
   }
 }

@@ -4,7 +4,6 @@
     <app-letter-list-item 
       *ngFor="let letter of getUnpostedLetters()"
       [letter]="letter"
-      (click)="handleClick(letter)"
     >
     </app-letter-list-item>
   </mat-selection-list>
@@ -14,7 +13,6 @@
     <app-letter-list-item
       *ngFor="let letter of getPostedLetters()"
       [letter]="letter"
-      (click)="handleClick(letter)"
     >
     </app-letter-list-item>
   </mat-selection-list>

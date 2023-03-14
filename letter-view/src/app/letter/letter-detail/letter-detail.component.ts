@@ -62,19 +62,7 @@ export class LetterDetailComponent implements OnInit {
     this.letterCrudService.createLetter(createdFormLetter);
   }
 
-  public deleteLetter(){
-    let letterId: number = this.letter ? this.letter.id : -1
-    if (letterId >= 0 && this.letter) {
-      this.letterCrudService.deleteLetter(this.letter);
-    }
-    else {
-      this.bodyInput?.setValue('');
-      this.topicInput?.setValue('');
-      this.date = new Date();
-    }
-  }
-
-  public openSendDialog(event: string) {
+  public openSendDialog() {
     let currentDate = new Date();
 
     if (this.date.getTime() < currentDate.getTime()) {
@@ -92,39 +80,14 @@ export class LetterDetailComponent implements OnInit {
   
       dialogRef.afterClosed().subscribe((confirmed: boolean) => {
         if (confirmed) {
-          if (event = 'send') {
             this.sendLetter()
-          }
-          else if (event = 'update') {
-            this.updateLetter()
-          }
         }
       })
     }
-
+    else {
+      this.sendLetter()
+    }
     
-  }
-
-  public openDeleteDialog(){
-    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
-      data:{
-        message: 'Are you sure want to delete?',
-        buttonText: {
-          ok: 'Delete',
-          cancel: 'No'
-        }
-      }
-    });
-
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.deleteLetter()
-      }
-      if (this.letter){
-      this.letterChooseService.nextLetter(this.letter);
-      }
-      this.bodyInput?.setErrors(null);
-    })
   }
 
   public updateLetter() {

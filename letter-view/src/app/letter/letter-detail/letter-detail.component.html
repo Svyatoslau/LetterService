@@ -26,7 +26,6 @@
         formControlName="body"
       >
       </textarea>
-      <mat-error>aaaa</mat-error>
     </mat-form-field>
 
     <div class="button-container">
@@ -40,14 +39,6 @@
         else updateBlock"
       >
       </div>
-      <button
-        class="delete-button"
-        mat-fab
-        color="primary"
-        (click)="openDeleteDialog()" 
-      >
-        <mat-icon>delete</mat-icon>
-      </button>
       </div>
   </form>
  
@@ -58,7 +49,7 @@
         class="send-button"
         mat-raised-button
         color="primary"
-        (click)="openSendDialog('send')"
+        (click)="openSendDialog()"
         [disabled]="letterForm.invalid"
       >
       Send
@@ -69,7 +60,7 @@
         class="send-button"
         mat-raised-button
         color="primary"
-        (click)="openSendDialog('update')"
+        (click)="updateLetter()"
         [disabled]="letterForm.invalid"
       >
       Update
