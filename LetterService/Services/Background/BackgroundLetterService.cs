@@ -2,6 +2,7 @@
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using MimeKit;
 using MimeKit.Text;
 using System.Runtime.CompilerServices;
@@ -45,9 +46,24 @@ public class BackgroundLetterService : IBackgroundLetter
                 {
                     try
                     {
+                        var stringEmails = letter.Emails.Split(';').ToList();
+
                         var email = new MimeMessage();
                         email.From.Add(MailboxAddress.Parse(_hostUser));
-                        email.To.Add(MailboxAddress.Parse(letter.User?.Email));
+
+                        if (!stringEmails.IsNullOrEmpty())
+                        {
+                            var emails = stringEmails
+                                .Select(email => MailboxAddress.Parse(_hostUser));
+
+                            email.To.AddRange(emails);
+                        }
+                        else
+                        {
+                            email.To.Add(MailboxAddress.Parse(letter.User?.Email));
+                        }
+                        
+
                         email.Subject = letter.Topic;
                         email.Body = new TextPart(TextFormat.Html)
                         {

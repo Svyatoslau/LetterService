@@ -20,6 +20,7 @@ CREATE TABLE [Letters]
 	[Body] NVARCHAR(1000) NOT NULL,
 	IsPosted BIT NOT NULL,
 	CreationTime DATETIME NOT NULL,
+	Emails NVARCHAR(200) NOT NULL,
 	[UserId] INT NOT NULL REFERENCES [Users] (Id)
 )
 Go
@@ -36,7 +37,7 @@ VALUES
 	1
 );
 
-INSERT INTO [Letters] (PostTime, [Topic], [Body], IsPosted, CreationTime, UserId)
+INSERT INTO [Letters] (PostTime, [Topic], [Body], IsPosted, CreationTime, [Emails], UserId)
 VALUES
 (
 	DATEADD(hour,2,GETDATE()),
@@ -44,6 +45,7 @@ VALUES
 	'What about study aboroad? Intresting?',
 	0,
 	GETDATE(),
+	'',
 	1
 ),
 (
@@ -52,6 +54,7 @@ VALUES
 	'What about old study? Intresting?',
 	1,
 	GETDATE(),
+	'',
 	1
 ),
 (
@@ -60,6 +63,7 @@ VALUES
 	'Hello i have secret messagge for you!!',
 	0,
 	GETDATE(),
+	'',
 	2	
 ),
 (
@@ -68,5 +72,6 @@ VALUES
 	'You know that old secret not secret?',
 	1,
 	GETDATE(),
+	'',
 	2
 );
