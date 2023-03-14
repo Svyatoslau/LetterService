@@ -4,7 +4,9 @@
   <p *ngIf="!isFormValid" class="login-error-validation">
     {{errorMessage}}
   </p>
-
+  <p *ngIf="userCreated" class="created-seccesful">
+    User created!
+  </p>
 
   <form [formGroup]="register">
 
@@ -63,7 +65,19 @@
         Mininal lenght for password <strong>4</strong>
       </mat-error>
     </mat-form-field>
-    
+
+    <mat-button-toggle-group
+      formControlName="role"
+      *ngIf="isAdmin"
+    >
+      <mat-button-toggle [value]="getRole('user')">
+        User
+      </mat-button-toggle>
+      <mat-button-toggle [value]="getRole('admin')">
+        Admin
+      </mat-button-toggle>
+      
+    </mat-button-toggle-group>
     <button 
       mat-raised-button color="primary"
       (click)="pushForm()"
@@ -76,7 +90,7 @@
     </mat-error>
   </form>
 
-  <p class="registr-callout">
+  <p class="registr-callout" *ngIf="!isAdmin">
     Already have account to LetSer? <a routerLink="/login">Log in.</a>
   </p>
 

@@ -11,6 +11,8 @@ import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation
 
 import { User } from 'src/app/models/User';
 import { Role } from 'src/app/models/Role.enum';
+import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
+import { UsersChooseService } from 'src/app/services/user/users-choose.service';
 
 @Component({
   selector: 'app-letter-user',
@@ -28,21 +30,22 @@ export class LetterUserComponent implements OnInit {
     private authService: AuthService,
     private userChooseService: UserChooseService,
     private letterChooseService: LetterChooseService,
-    private userService: UserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private usersChooseService: UsersChooseService
   ) {}
 
   ngOnInit() {
     this.loginUser = this.authService.getLoginUser()
     this.isAdmin = this.loginUser.role === Role.admin;
     if (this.isAdmin){
-      this.userService.GetUsers()
+      this.usersChooseService.users$
         .subscribe(
           (users: User[]) =>{
             this.users  = users;
           }
         );
     }
+    
   } 
 
   public newMessage() {
@@ -76,8 +79,18 @@ export class LetterUserComponent implements OnInit {
     })
   }
 
-  public createAdmin() {
+  public openCreateUserDialog() {
+    const dialogRef = this.dialog.open(CreateUserDialogComponent, {
+      data: {
+        users: this.users
+      }
+    });
 
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        
+      }
+    })
   }
 
 

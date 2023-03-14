@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule } from '@angular/common/http';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { AppRoutingModule } from '../app-routing.module';
 
@@ -24,7 +25,8 @@ import { RegistrationComponent } from './registration/registration.component';
     MatInputModule,
     MatButtonModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    MatButtonToggleModule
   ],
   declarations: [
     LoginComponent,

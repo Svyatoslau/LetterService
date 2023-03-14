@@ -20,6 +20,8 @@ import { LetterListComponent } from './letter-list/letter-list.component';
 import { LetterListItemComponent } from './letter-list-item/letter-list-item.component';
 import { LetterUserComponent } from './letter-user/letter-user.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { CreateUserDialogComponent } from './create-user-dialog/create-user-dialog.component';
+import { EntryModule } from '../entry/entry.module';
 
 @NgModule({
   imports: [
@@ -33,27 +35,31 @@ import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-
     MatListModule,
     MatSelectModule,
     AppRoutingModule,
-    MatDialogModule
+    MatDialogModule,
+    EntryModule,
   ],
   declarations: [
     LetterDetailComponent,
     LetterListComponent,
     LetterListItemComponent,
     LetterUserComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CreateUserDialogComponent
   ],
   exports: [
     LetterDetailComponent,
     LetterListComponent,
     LetterListItemComponent,
-    LetterUserComponent
+    LetterUserComponent,
+    CreateUserDialogComponent
   ],
   providers: [
     AuthService,
     LetterChooseService
   ],
   entryComponents: [
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CreateUserDialogComponent
   ]
 })
 export class LetterModule { }

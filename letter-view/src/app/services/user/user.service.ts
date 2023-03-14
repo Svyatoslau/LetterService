@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, Observable, of } from 'rxjs';
+import { UserForCreation } from 'src/app/models/api/user-for-creation';
 
 import { environment } from 'src/environments/environment.development';
 
@@ -55,11 +56,24 @@ export class UserService {
       );
   }
 
+  public createUser(model: UserForCreation): Observable<User | ErrorMessage> {
+    return this.http.post<User | ErrorMessage>(
+      `${this.apiUrl}/user`,
+      model,
+      this.httpOptions
+    )
+    .pipe(
+      catchError((error: any): Observable<ErrorMessage> => { 
+        return of(error.error as ErrorMessage);
+      })
+    )
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> =>{
       console.log(error);
       return of(result as T);
     }
   }
-
+  
 }

@@ -52,3 +52,36 @@ p.login-error-validation{
     border: 0.9px solid;
     border-color: #ffbcbc;
 }
+.mat-button-toggle{
+    width: 100%;
+    background-color: #ffffff;
+
+}
+
+.mat-button-toggle:hover {
+    background-color: transparent;   
+}
+
+.mat-button-toggle-checked {
+    background-color: #6b4399;
+    color: #ffffff
+
+}
+mat-button-toggle-group {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.mat-button-toggle-checked:hover {
+    background-color: #6b4399;
+}
+.created-seccesful {
+    padding: 16px;
+    text-align: center;
+    margin-bottom: 8px;
+    margin-top: 10px;
+    border-radius: 6px;
+    background-color: #d6ffe4;
+    border: 0.9px solid;
+    border-color: #2f5f43;
+}
