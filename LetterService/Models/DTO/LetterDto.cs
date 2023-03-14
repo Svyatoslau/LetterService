@@ -8,5 +8,6 @@ public class LetterDto
     public string? Topic { get; set; }
     public string? Body { get; set; }
     public DateTime PostTime { get; set; }
+    public required string Emails { get; set; }
     public bool IsPosted { get; set; }
 }

@@ -16,6 +16,7 @@ public class LetterCRUDService : ICRUDLetter
             Body = model.Body,
             Topic = model.Topic,
             IsPosted = false,
+            Emails= model.Emails,
             UserId = userId
         };
     }
@@ -27,6 +28,7 @@ public class LetterCRUDService : ICRUDLetter
         letter.Body = letterForCreateDto.Body;
         letter.Topic = letterForCreateDto.Topic;
         letter.CreationTime = DateTime.UtcNow;
+        letter.Emails= letterForCreateDto.Emails;
         letter.IsPosted = false;
     }
 }
