@@ -109,6 +109,7 @@ export class RegistrationComponent implements OnInit {
             this.passwordInput?.setErrors(null);
             this.repeatPasswordInput?.setErrors(null);
             this.userCreated = true;
+            this.isFormValid = true;
           }
           else {
             this.register.reset();

@@ -21,7 +21,7 @@ import { UsersChooseService } from 'src/app/services/user/users-choose.service';
 export class LetterUserComponent implements OnInit {
   public loginUser?: User;
   public isAdmin: boolean = false;
-  
+  public user!: User; 
   public users: User[] = [];
 
   constructor(
@@ -44,11 +44,17 @@ export class LetterUserComponent implements OnInit {
           }
         );
     }
+    this.userChooseService.user$
+      .subscribe(
+        (user) => {
+          this.user = user;
+        }
+      )
     
   } 
 
   public newMessage() {
-    this.letterChooseService.nextEmptyLetter('');
+    this.letterChooseService.nextEmptyLetter(this.user.email);
   }
 
   public changeUser(user: User) {
