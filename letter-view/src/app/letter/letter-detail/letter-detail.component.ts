@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { distinctUntilChanged, Subject } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs';
 
 import { LetterChooseService } from 'src/app/services/letter/letter-choose.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -31,6 +31,8 @@ export class LetterDetailComponent implements OnInit {
   });
 
   public date: Date = new Date();
+
+  @ViewChild('formLetter') form!: NgForm;
 
   public letter?: Letter;
   constructor(
@@ -137,7 +139,9 @@ export class LetterDetailComponent implements OnInit {
       )
       .subscribe(
         (letter: Letter) => {
-          this.bodyInput?.reset()
+          if(letter.id === -1) {
+            this.form.resetForm();
+          }
           this.emailInput?.setValue(letter.emails)
           this.topicInput?.setValue(letter.topic)
           this.bodyInput?.setValue(letter.body)
