@@ -1,5 +1,5 @@
 <div class="registr-form">
-  <h1>Sign up to LetSer</h1>
+  <h1>{{isAdmin ? 'Create user' : 'Sign up'}} to LetSer</h1>
 
   <p *ngIf="!isFormValid" class="login-error-validation">
     {{errorMessage}}
@@ -8,8 +8,11 @@
     User created!
   </p>
 
-  <form [formGroup]="register">
-
+  <form
+    [formGroup]="register"
+    #registrFrom="ngForm"
+    (ngSubmit)="pushForm(); registrFrom.resetForm()"
+  >
     <mat-form-field>
       <mat-label>Email</mat-label>
       <input
@@ -62,7 +65,7 @@
         Password is <strong>required</strong>
       </mat-error>
       <mat-error *ngIf="repeatPasswordInput?.hasError('minlength')">
-        Mininal lenght for password <strong>4</strong>
+        Mininal lenght for password <strong>8</strong>
       </mat-error>
     </mat-form-field>
 
@@ -80,10 +83,10 @@
     </mat-button-toggle-group>
     <button 
       mat-raised-button color="primary"
-      (click)="pushForm()"
+      type="submit"
       [disabled]="register.invalid"
     >
-      Sign up
+      {{isAdmin ? 'Create' : 'Sign up'}}
     </button>
     <mat-error *ngIf="register?.hasError('passwordNotRepeated')">
       Passwords need to be <strong>same</strong>

@@ -104,18 +104,10 @@ export class RegistrationComponent implements OnInit {
           //console.log(value)
           if (this.instanceOfSuccesfullLogin(value)){
             this.create.emit(value);
-            this.register.reset();
-            this.emailInput?.setErrors(null);
-            this.passwordInput?.setErrors(null);
-            this.repeatPasswordInput?.setErrors(null);
             this.userCreated = true;
             this.isFormValid = true;
           }
           else {
-            this.register.reset();
-            this.emailInput?.setErrors(null);
-            this.passwordInput?.setErrors(null);
-            this.repeatPasswordInput?.setErrors(null);
             this.isFormValid = false,
             this.userCreated = false
             this.errorMessage = value.message
@@ -139,10 +131,6 @@ export class RegistrationComponent implements OnInit {
             this.router.navigate(['/login'])
           }
           else {
-            this.register.reset();
-            this.emailInput?.setErrors(null);
-            this.passwordInput?.setErrors(null);
-            this.repeatPasswordInput?.setErrors(null);
             this.isFormValid = false,
             this.errorMessage = value.message
           }

@@ -5,7 +5,11 @@
     {{errorMessage}}
   </p>
 
-  <form [formGroup]="signin">
+  <form
+    [formGroup]="signin"
+    #signinForm="ngForm"
+    (ngSubmit)="pushForm(); signinForm.resetForm()"
+  >
 
     <mat-form-field>
       <mat-label>Email</mat-label>
@@ -43,8 +47,8 @@
     <button
       mat-raised-button
       color="primary"
-      (click)="pushForm()"
-      [disabled]="signin.invalid || refresh"
+      [disabled]="signin.invalid"
+      type="submit"
     >
       Sign In
     </button>

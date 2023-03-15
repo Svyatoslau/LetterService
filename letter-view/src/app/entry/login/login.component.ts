@@ -28,7 +28,6 @@ export class LoginComponent implements OnInit{
   public hide: boolean = true;
   public isFormValid: boolean = true;
   public errorMessage: string = '';
-  public refresh: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -37,12 +36,6 @@ export class LoginComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.signin.valueChanges
-      .subscribe(
-        (value) => {
-          this.refresh = false;
-        }
-      )
   }
 
   public get emailInput() {
@@ -68,17 +61,13 @@ export class LoginComponent implements OnInit{
             this.router.navigate(['/page'])
           }
           else {
-            this.signin?.reset();
-            this.emailInput?.setErrors(null);
-            this.passwordInput?.setErrors(null);
             this.isFormValid = false,
             this.errorMessage = value.message
-            this.refresh = true
           }
         }
       )
   }
-  
+
   private instanceOfSuccesfullLogin(object: any): object is SuccesfullLogin {
     try{
       return 'user' in object && 'token' in object
