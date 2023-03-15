@@ -45,6 +45,7 @@ export class DateTimePickerComponent implements OnInit {
       .subscribe(
         (value) => {
           this.dateUpdated();
+          
         }
       );
   }

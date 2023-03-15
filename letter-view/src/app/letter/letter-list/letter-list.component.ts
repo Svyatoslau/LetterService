@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { LettersChooseService } from 'src/app/services/letter/letters-choose.service';
 
 import { Letter } from 'src/app/models/Letter';
-import { debounceTime, distinctUntilChanged, Subject, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
