@@ -1,5 +1,9 @@
 <div class="letter-detail">
-  <form [formGroup]="letterForm">
+  <form
+    [formGroup]="letterForm"
+    #formLetter="ngForm"
+    (ngSubmit)="onSubmit();"
+  >
     <mat-form-field class="email">
       <mat-label>Recipients</mat-label>
       <input
@@ -33,36 +37,19 @@
         (update)="handleUpdateDate($event)"
       >
       </app-date-time-picker>
-      <div 
-        *ngIf="!letter || letter.isPosted || letter.id == -1;
-        then sendBlock;
-        else updateBlock"
+      <button
+        class="send-button"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="letterForm.invalid"
       >
-      </div>
+      {{
+        !letter || letter.isPosted || letter.id == -1
+        ? 'Send'
+        : 'Update'  
+      }}
+      </button>
       </div>
   </form>
- 
 </div>
-
-<ng-template #sendBlock>
-  <button
-        class="send-button"
-        mat-raised-button
-        color="primary"
-        (click)="openSendDialog()"
-        [disabled]="letterForm.invalid"
-      >
-      Send
-      </button>
-</ng-template>
-<ng-template #updateBlock>
-  <button
-        class="send-button"
-        mat-raised-button
-        color="primary"
-        (click)="updateLetter()"
-        [disabled]="letterForm.invalid"
-      >
-      Update
-      </button>
-</ng-template>

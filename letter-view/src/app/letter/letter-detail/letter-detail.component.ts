@@ -59,39 +59,53 @@ export class LetterDetailComponent implements OnInit {
       body: this.bodyInput?.value,
       emails: this.emailInput?.value
     }
+    
     this.letterCrudService.createLetter(createdFormLetter);
   }
 
   public openSendDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
+      data:{
+        message: 'Choosed date in past. Are you want send letter now?',
+        buttonText: {
+          ok: 'Send',
+          cancel: 'Cancel'
+        },
+        color: 'primary'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        if(!this.letter?.isPosted){
+          this.updateLetter();
+        }
+        else {
+          this.sendLetter();
+        }
+      }
+    });
+  }
+
+  public onSubmit(){
     let currentDate = new Date();
 
     if (this.date.getTime() < currentDate.getTime()) {
       this.date = currentDate;
-
-      const dialogRef = this.dialog.open(ConfirmationDialogComponent,{
-        data:{
-          message: 'Choosed date in past. Are you want send letter now?',
-          buttonText: {
-            ok: 'Send',
-            cancel: 'Cancel'
-          },
-          color: 'primary'
-        }
-      });
-  
-      dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-        if (confirmed) {
-            this.sendLetter()
-        }
-      })
+      this.openSendDialog();
     }
-    else {
-      this.sendLetter()
+    else{
+      if(!this.letter?.isPosted){
+        this.updateLetter();
+      }
+      else {
+        this.sendLetter()
+      }
     }
-    
   }
 
   public updateLetter() {
+    console.log('update')
     let model : LetterForUpdate = {
       model: {
         postTime: this.date,
