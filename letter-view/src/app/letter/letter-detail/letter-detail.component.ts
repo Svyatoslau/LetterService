@@ -55,6 +55,8 @@ export class LetterDetailComponent implements OnInit {
     return this.letterForm.get('body');
   }
   public sendLetter() {
+    console.log('send');
+    
     let createdFormLetter: LetterForCreation = {
       postTime: this.date,
       topic: this.topicInput?.value,
@@ -79,11 +81,11 @@ export class LetterDetailComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((confirmed: boolean) => {
       if (confirmed) {
-        if(!this.letter?.isPosted){
-          this.updateLetter();
+        if(!this.letter || this.letter?.isPosted || this.letter.id == -1){
+          this.sendLetter();
         }
         else {
-          this.sendLetter();
+          this.updateLetter();
         }
       }
     });
@@ -92,16 +94,18 @@ export class LetterDetailComponent implements OnInit {
   public onSubmit(){
     let currentDate = new Date();
 
+    console.log('onSubmit');
+
     if (this.date.getTime() < currentDate.getTime()) {
       this.date = currentDate;
       this.openSendDialog();
     }
     else{
-      if(!this.letter?.isPosted){
-        this.updateLetter();
+      if(!this.letter || this.letter?.isPosted || this.letter.id == -1){
+        this.sendLetter();
       }
       else {
-        this.sendLetter()
+        this.updateLetter();
       }
     }
   }
