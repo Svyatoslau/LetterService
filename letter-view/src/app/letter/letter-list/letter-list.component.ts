@@ -20,7 +20,6 @@ export class LetterListComponent implements OnInit {
 
   constructor(
     private lettersChooseService: LettersChooseService,
-
   ) { }
 
   public get filterInput(){
