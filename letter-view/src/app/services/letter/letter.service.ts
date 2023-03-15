@@ -27,6 +27,16 @@ export class LetterService {
   constructor(
     private http: HttpClient
   ) { }
+   
+  public getAllLetters(): Observable<Letter[]>{
+    return this.http.get<Letter[]>(
+      `${this.apiUrl}/letters`,
+      this.httpOptions
+    )
+    .pipe(
+      catchError(this.handleError('getLetters', []))
+    )
+  }
 
   public getLetters(userId: number): Observable<Letter[]>{
     return this.http.get<Letter[]>(

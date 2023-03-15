@@ -9,6 +9,7 @@ import { UserChooseService } from '../user/user-choose.service';
 import { User } from 'src/app/models/User';
 import { LetterForUpdate } from 'src/app/models/api/LetterForUpdate';
 import { LettersChooseService } from './letters-choose.service';
+import { LetterCountService } from './letter-count.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,8 @@ export class LetterCrudService {
     private letterService: LetterService,
     private letterChooseService: LetterChooseService,
     private userChooseService: UserChooseService,
-    private lettersChooseService: LettersChooseService
+    private lettersChooseService: LettersChooseService,
+    private letterCountService: LetterCountService
   ) 
   {
     userChooseService.user$
@@ -47,6 +49,8 @@ export class LetterCrudService {
           this.letters.push(letter);
           this.lettersChooseService.nextLetters(this.letters);
           this.letterChooseService.nextLetter(letter);
+
+          this.letterCountService.addCountLetter(1);
         }
       )
   }
@@ -58,6 +62,8 @@ export class LetterCrudService {
           this.letterChooseService.nextEmptyLetter(this.user.email);
           this.lettersChooseService
             .nextLetters(this.letters.filter(l => l.id !== letter.id));
+
+          this.letterCountService.addCountLetter(-1);
         }
       )
   }

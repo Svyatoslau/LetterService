@@ -12,6 +12,7 @@ import { User } from 'src/app/models/User';
 import { Role } from 'src/app/models/Role.enum';
 import { CreateUserDialogComponent } from '../create-user-dialog/create-user-dialog.component';
 import { UsersChooseService } from 'src/app/services/user/users-choose.service';
+import { LetterCountService } from 'src/app/services/letter/letter-count.service';
 
 @Component({
   selector: 'app-letter-user',
@@ -30,7 +31,8 @@ export class LetterUserComponent implements OnInit {
     private userChooseService: UserChooseService,
     private letterChooseService: LetterChooseService,
     private dialog: MatDialog,
-    private usersChooseService: UsersChooseService
+    private usersChooseService: UsersChooseService,
+    public letterCountService: LetterCountService
   ) {
 
   }

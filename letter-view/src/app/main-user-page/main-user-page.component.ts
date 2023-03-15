@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
-
-import { User } from '../models/User';
+import { LetterService } from '../services/letter/letter.service';
+import { LetterCountService } from '../services/letter/letter-count.service';
 import { UserChooseService } from '../services/user/user-choose.service';
 import { UsersChooseService } from '../services/user/users-choose.service';
 import { UserService } from '../services/user/user.service';
+
+import { User } from '../models/User';
 import { Role } from '../models/Role.enum';
+import { Letter } from '../models/Letter';
 
 @Component({
   selector: 'app-main-user-page',
@@ -20,7 +23,9 @@ export class MainUserPageComponent implements OnInit {
     private authService: AuthService,
     private userChooseService: UserChooseService,
     private usersChooseService: UsersChooseService,
-    private userSerivce: UserService
+    private userSerivce: UserService,
+    private letterService: LetterService,
+    private letterCountService: LetterCountService
   ) { }
 
   ngOnInit() {
@@ -32,7 +37,16 @@ export class MainUserPageComponent implements OnInit {
           (users) => {
             this.usersChooseService.nextUsers(users);
           }
+        );
+      
+      this.letterService.getAllLetters()
+        .subscribe(
+          (letters: Letter[]) => {
+            this.letterCountService
+              .setCountLetters(letters.length);
+          }
         )
     }
+    
   }
 }
