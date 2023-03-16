@@ -20,6 +20,9 @@
         matInput
         formControlName="topic"  
       > 
+      <mat-error>
+        Topic is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="letter-body">
@@ -30,6 +33,9 @@
         formControlName="body"
       >
       </textarea>
+      <mat-error>
+        Text is <strong>required</strong>
+      </mat-error>
     </mat-form-field>
 
     <div class="button-container">

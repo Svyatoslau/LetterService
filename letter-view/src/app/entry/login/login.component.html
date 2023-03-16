@@ -19,12 +19,10 @@
         placeholder="ex@example.com"
         formControlName="email"
       />
-      <mat-error *ngIf="emailInput?.hasError('email') && !emailInput?.hasError('required')">
-        Please enter a valid email address
+      <mat-error>
+        {{getErrorLoginMessage()}}
       </mat-error>
-      <mat-error *ngIf="emailInput?.hasError('required')">
-        Email is <strong>required</strong>
-      </mat-error>
+      
     </mat-form-field>
     
     <mat-form-field>

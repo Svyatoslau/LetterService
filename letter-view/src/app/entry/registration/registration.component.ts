@@ -150,6 +150,24 @@ export class RegistrationComponent implements OnInit {
     }
   }
 
+  public getEmailErrorMessage() {
+    if(this.emailInput?.hasError('email') && !this.emailInput?.hasError('required')) {
+      return "Please enter a valid email address";
+    }
+    return "Email is required";
+  }
+
+  public getPasswordErrorMessage(controler: string) {
+    if(controler === 'password' && this.passwordInput?.hasError('minlength')) {
+      return "Mininal lenght for password 8";
+    }
+    if (controler === 'confirmPassword' && this.repeatPasswordInput?.hasError('minlength')) {
+      return "Mininal lenght for password 8";
+    }
+    
+    return "Password is required"
+  }
+
   private instanceOfSuccesfullLogin(object: any): object is User {
     try{
       return 'id' in object && 'email' in object && 'role' in object

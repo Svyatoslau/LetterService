@@ -21,11 +21,8 @@
         placeholder="ex@example.com"
         formControlName="email"
       />
-      <mat-error *ngIf="emailInput?.hasError('email') && !emailInput?.hasError('required')">
-        Please enter a valid email address
-      </mat-error>
-      <mat-error *ngIf="emailInput?.hasError('required')">
-        Email is <strong>required</strong>
+      <mat-error>
+        {{getEmailErrorMessage()}}
       </mat-error>
     </mat-form-field>
     
@@ -41,11 +38,8 @@
       <mat-icon matSuffix (click)="hide = !hide">
         {{hide ? 'visibility_off' : 'visibility'}}
       </mat-icon>
-      <mat-error *ngIf="passwordInput?.hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="passwordInput?.hasError('minlength')">
-        Mininal lenght for password <strong>8</strong>
+      <mat-error>
+        {{getPasswordErrorMessage('password')}}
       </mat-error>
     </mat-form-field>
 
@@ -61,11 +55,8 @@
       <mat-icon matSuffix (click)="hide = !hide">
         {{hide ? 'visibility_off' : 'visibility'}}
       </mat-icon>
-      <mat-error *ngIf="repeatPasswordInput?.hasError('required')">
-        Password is <strong>required</strong>
-      </mat-error>
-      <mat-error *ngIf="repeatPasswordInput?.hasError('minlength')">
-        Mininal lenght for password <strong>8</strong>
+      <mat-error>
+        {{getPasswordErrorMessage('confirmPassword')}}
       </mat-error>
     </mat-form-field>
 

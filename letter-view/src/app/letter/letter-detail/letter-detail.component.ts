@@ -24,7 +24,9 @@ export class LetterDetailComponent implements OnInit {
     email: new FormControl('', [
       Validators.required
     ]),
-    topic: new FormControl('', []),
+    topic: new FormControl('', [
+      Validators.required
+    ]),
     body: new FormControl('', [
       Validators.required
     ])
@@ -155,4 +157,6 @@ export class LetterDetailComponent implements OnInit {
     );
 
   }
+
+  
 }

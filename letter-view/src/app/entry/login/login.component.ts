@@ -67,6 +67,12 @@ export class LoginComponent implements OnInit{
         }
       )
   }
+  public getErrorLoginMessage(){
+    if (this.emailInput?.hasError('email') && !this.emailInput?.hasError('required')) {
+      return "Please enter a valid email address"
+    }
+    return "Email is required"
+  }
 
   private instanceOfSuccesfullLogin(object: any): object is SuccesfullLogin {
     try{
