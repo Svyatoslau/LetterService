@@ -1,0 +1,51 @@
+<div class="user-container">
+  <div class="user-head-container">
+    <h3>{{ isAdmin ? "Admin": "User"}} : {{loginUser?.email}}</h3>
+  </div>
+  <button
+    mat-stroked-button
+    class="close-button"
+    (click)="openDialog()"
+    color="warn"
+  >
+    Logout
+  </button>
+  <div *ngIf="isAdmin; then adminBlock"></div>
+  <button
+    mat-raised-button
+    (click)="newMessage()"
+  >
+    New Message
+  </button>
+</div>
+
+<ng-template #adminBlock>
+  <h3>
+    Number of all Emails: 
+    <strong>
+      {{letterCountService.getCountLetters()}}
+    </strong>
+  </h3>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Choese user</mat-label>
+    <mat-select [value]="loginUser?.email">
+      <mat-option  
+        *ngFor="let user of users"
+        [value]="user.email"
+        (click)="changeUser(user)"
+      >
+        {{user.email}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  
+  <button
+    class="admin-button"
+    mat-raised-button
+    color="primary"
+    (click)="openCreateUserDialog()"
+  >
+    Create new User
+  </button>
+</ng-template>

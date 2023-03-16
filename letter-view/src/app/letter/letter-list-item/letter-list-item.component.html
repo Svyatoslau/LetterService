@@ -1,0 +1,15 @@
+<div class="item-container">
+  <mat-list-item (click)="clickLetter()">
+    <span matListItemTitle>{{letter.topic}}</span>
+    <span matListItemLine>
+      {{getFormatDate()}}
+    </span>
+  </mat-list-item>
+  <button
+    mat-icon-button
+    class="close-button"
+    (click) = "openDeleteDialog()"
+  >
+    <mat-icon class="close-icon" color="warn">close</mat-icon>
+  </button>
+</div>

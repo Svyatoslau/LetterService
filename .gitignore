@@ -361,3 +361,47 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+letter-view/dist
+letter-view/tmp
+letter-view/out-tsc
+letter-view/bazel-out
+
+# Node
+letter-view/node_modules
+letter-view/npm-debug.log
+letter-view/yarn-error.log
+
+# IDEs and editors
+letter-view/.idea/
+letter-view/.project
+letter-view/.classpath
+letter-view/.c9/
+letter-view/*.launch
+letter-view/.settings/
+letter-view/*.sublime-workspace
+
+# Visual Studio Code
+letter-view/.vscode/*
+letter-view/!.vscode/settings.json
+letter-view/!.vscode/tasks.json
+letter-view/!.vscode/launch.json
+letter-view/!.vscode/extensions.json
+letter-view/.history/*
+
+# Miscellaneous
+letter-view/.angular/cache
+letter-view/.sass-cache/
+letter-view/connect.lock
+letter-view/coverage
+letter-view/libpeerconnection.log
+letter-view/testem.log
+letter-view/typings
+
+# System files
+letter-view/.DS_Store
+letter-view/Thumbs.db
+
+letter-view/package-lock.json
+letter-view/.editorconfig
+letter-view/src/favicon.ico

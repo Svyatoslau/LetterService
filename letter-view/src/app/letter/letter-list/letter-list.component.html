@@ -1,0 +1,32 @@
+<div class="container-list">
+  <div>
+    <h3>
+      Number of user Emails: <strong>{{letters.length}}</strong> 
+    </h3>
+  </div>
+  <mat-form-field [formGroup]="filterForm">
+    <mat-label>Filter</mat-label>
+    <input
+      type="text"
+      matInput
+      formControlName="filter"
+    >
+  </mat-form-field>
+  <h3>Unposted</h3>
+  <mat-selection-list [multiple]="false">
+    <app-letter-list-item 
+      *ngFor="let letter of getUnpostedLetters()"
+      [letter]="letter"
+    >
+    </app-letter-list-item>
+  </mat-selection-list>
+
+  <h3>Posted</h3>
+  <mat-selection-list [multiple]="false">
+    <app-letter-list-item
+      *ngFor="let letter of getPostedLetters()"
+      [letter]="letter"
+    >
+    </app-letter-list-item>
+  </mat-selection-list>
+</div>
