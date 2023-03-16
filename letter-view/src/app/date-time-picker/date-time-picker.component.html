@@ -1,0 +1,15 @@
+
+<form [formGroup]="datePicker">
+  <mat-form-field>
+    <input
+      matInput
+      [min]="minDate"
+      [ngxMatDatetimePicker]="picker"
+      placeholder="Choose a date"
+      formControlName="date"
+    >
+  <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+  <ngx-mat-datetime-picker #picker>
+  </ngx-mat-datetime-picker>
+  </mat-form-field>
+</form>

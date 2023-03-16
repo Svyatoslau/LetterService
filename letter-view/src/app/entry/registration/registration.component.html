@@ -1,0 +1,91 @@
+<div class="registr-form">
+  <h1>{{isAdmin ? 'Create user' : 'Sign up'}} to LetSer</h1>
+
+  <p *ngIf="!isFormValid" class="login-error-validation">
+    {{errorMessage}}
+  </p>
+  <p *ngIf="userCreated" class="created-seccesful">
+    User created!
+  </p>
+
+  <form
+    [formGroup]="register"
+    #registrFrom="ngForm"
+    (ngSubmit)="pushForm(); registrFrom.resetForm()"
+  >
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input
+        type="email"
+        matInput
+        placeholder="ex@example.com"
+        formControlName="email"
+      />
+      <mat-error>
+        {{getEmailErrorMessage()}}
+      </mat-error>
+    </mat-form-field>
+    
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input 
+        matInput 
+        placeholder="Password"
+        [type]="hide ? 'password' : 'text'" 
+        formControlName="password" 
+        required
+      >
+      <mat-icon matSuffix (click)="hide = !hide">
+        {{hide ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+      <mat-error>
+        {{getPasswordErrorMessage('password')}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Confirm password</mat-label>
+      <input 
+        matInput 
+        placeholder="Password"
+        [type]="hide ? 'password' : 'text'" 
+        formControlName="confirmPassword" 
+        required
+      >
+      <mat-icon matSuffix (click)="hide = !hide">
+        {{hide ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
+      <mat-error>
+        {{getPasswordErrorMessage('confirmPassword')}}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-button-toggle-group
+      formControlName="role"
+      *ngIf="isAdmin"
+    >
+      <mat-button-toggle [value]="getRole('user')">
+        User
+      </mat-button-toggle>
+      <mat-button-toggle [value]="getRole('admin')">
+        Admin
+      </mat-button-toggle>
+      
+    </mat-button-toggle-group>
+    <button 
+      mat-raised-button color="primary"
+      type="submit"
+      [disabled]="register.invalid"
+    >
+      {{isAdmin ? 'Create' : 'Sign up'}}
+    </button>
+    <mat-error *ngIf="register?.hasError('passwordNotRepeated')">
+      Passwords need to be <strong>same</strong>
+    </mat-error>
+  </form>
+
+  <p class="registr-callout" *ngIf="!isAdmin">
+    Already have account to LetSer? <a routerLink="/login">Log in.</a>
+  </p>
+
+</div>

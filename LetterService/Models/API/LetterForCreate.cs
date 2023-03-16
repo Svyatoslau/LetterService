@@ -7,3 +7,4 @@ public class LetterForCreate
     public required string Body { get; set; }
     public required string Emails { get; set; }
 }
+
