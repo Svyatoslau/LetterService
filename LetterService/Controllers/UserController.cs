@@ -99,7 +99,6 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("users")]
-
     [AuthorizeRoles(Role.Admin)]
     public async Task<ActionResult> GetUsers()
     {
@@ -107,6 +106,5 @@ public class UserController : ControllerBase
         var usersDto = _mapper.Map<IEnumerable<UserDto>>(users);
         return Ok(usersDto);
     }
-
 
 }
